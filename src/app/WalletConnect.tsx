@@ -1,5 +1,7 @@
 // src/app/WalletConnect.tsx
 
+"use client";
+
 import { useEffect, useState } from 'react';
 import { Connection, PublicKey, clusterApiUrl, Transaction, SystemProgram } from '@solana/web3.js';
 
