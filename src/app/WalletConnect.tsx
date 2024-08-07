@@ -1,4 +1,7 @@
+
 // src/app/WalletConnect.tsx
+// Component for connecting to a Solana wallet and handling wallet interactions.
+
 
 "use client";
 
