@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BTB Finance Dapp
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+BTB Finance is a decentralized finance (DeFi) application built on the Solana blockchain. Our Dapp allows users to provide liquidity, manage fees, and engage in risk mitigation strategies through automated pool rebalancing.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Table of Contents
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Smart Contracts](#smart-contracts)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Introduction
 
-## Learn More
+BTB Finance aims to provide a seamless and efficient way for users to manage their liquidity on the Solana blockchain. With features like auto-rebalancing and fee distribution, we offer a unique approach to liquidity management.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Liquidity Management**: Provide liquidity in various pairs such as SOL/USDT.
+- **Fee Management**: Automatic calculation and distribution of fees.
+- **Auto-Rebalancing**: Automated rebalancing of liquidity pools to optimize returns.
+- **Risk Mitigation**: Backup strategies for risky assets to minimize potential losses.
+- **User Dashboard**: A user-friendly interface to manage your liquidity and view earnings.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Technology Stack
 
-## Deploy on Vercel
+- **Frontend**: Next.js, Tailwind CSS
+- **Backend**: Solana Web3.js
+- **Smart Contracts**: Rust, Anchor Framework
+- **Deployment**: Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Prerequisites
+
+1. **Install Node.js and npm**:
+   - [Download and install Node.js](https://nodejs.org/).
+
+2. **Install Solana CLI**:
+   ```bash
+   sh -c "$(curl -sSfL https://release.solana.com/v1.8.3/install)"
