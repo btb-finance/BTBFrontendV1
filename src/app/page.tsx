@@ -1,17 +1,15 @@
 // src/app/page.tsx
 
+import React from 'react';
 
-"use client";
-
-import WalletConnect from './WalletConnect';
-
-const Home = () => {
+const HomePage = () => {
   return (
     <div>
-      <h1>Hello Solana Dapp</h1>
-      <WalletConnect />
+      <h1>Welcome to BTB Finance</h1>
+      {/* Add other components or content here */}
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
+
