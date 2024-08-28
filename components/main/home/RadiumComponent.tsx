@@ -18,7 +18,7 @@ const RadiumComponent: React.FC<RadiumComponentProps> = ({ onClick }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const result = await fetchRadiumData(currentPage, PAGE_SIZE);
+        const result = await fetchRadiumData(currentPage, PAGE_SIZE, "liquidity");
         if (result) {
           setData(result.data.data);
         }

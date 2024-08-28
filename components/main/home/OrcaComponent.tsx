@@ -1,52 +1,23 @@
 import { useEffect, useState } from "react";
 import OrcaTable from "@/components/main/home/OrcaTable";
-import {
-  combineOrcaAndTokenData,
-  getOrcaData,
-  getOrcaTokens,
-} from "@/services/orca_api";
-import { OrcaData, TokenData } from "@/types/home/orca";
-
-const PAGE_SIZE = 10;
-const LIMIT = 1000;
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/state-management/store";
+import { setPage } from "@/state-management/slices/orcaSlice";
+import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface OrcaComponentProps {
   onClick: (poolId: string) => void;
 }
 
 const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
-  const [combinedData, setCombinedData] = useState<
-    (OrcaData & { tokenA?: TokenData; tokenB?: TokenData })[]
-  >([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const [orcaDataResult, orcaTokensResult] = await Promise.all([
-          getOrcaData(LIMIT), 
-          getOrcaTokens(LIMIT),
-        ]);
-
-        const combined = combineOrcaAndTokenData(
-          orcaDataResult,
-          orcaTokensResult
-        );
-        setCombinedData(combined);
-
-        setTotalPages(Math.ceil(combined.length / PAGE_SIZE));
-      } catch (error) {
-        console.error("Error fetching Orca data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const dispatch: AppDispatch = useDispatch();
+  const {
+    data: combinedData,
+    loading,
+    currentPage,
+    totalPages,
+  } = useSelector((state: RootState) => state.orca);
 
   const getPaginatedOrcaData = () => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
@@ -56,7 +27,7 @@ const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      dispatch(setPage(newPage));
     }
   };
 

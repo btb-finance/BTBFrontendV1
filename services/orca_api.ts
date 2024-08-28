@@ -1,6 +1,4 @@
 import {
-  OrcaDataResponse,
-  TokenDataResponse,
   OrcaData,
   TokenData,
 } from "@/types/home/orca";
@@ -49,14 +47,22 @@ export const getOrcaTokens = async (limit: number): Promise<TokenData[]> => {
   return response;
 };
 
+export const filterOrcaData = (orcaData: OrcaData[]): OrcaData[] => {
+  return orcaData.filter(
+    (data) => data.liquidity !== "0" && data.protocolFeeOwedA !== "0"
+  );
+};
+
 export const combineOrcaAndTokenData = (
   orcaData: OrcaData[],
   tokenData: TokenData[]
 ): (OrcaData & { tokenA?: TokenData; tokenB?: TokenData })[] => {
+  const filteredOrcaData = filterOrcaData(orcaData);
   const tokenMap = new Map<string, TokenData>();
+
   tokenData.forEach((token) => tokenMap.set(token.address, token));
 
-  return orcaData.map((orca) => ({
+  return filteredOrcaData.map((orca) => ({
     ...orca,
     tokenA: tokenMap.get(orca.tokenMintA),
     tokenB: tokenMap.get(orca.tokenMintB),
