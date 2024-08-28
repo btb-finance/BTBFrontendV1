@@ -1,17 +1,18 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::entrypoint::ProgramResult;
 
-declare_id!("Hv3ExjTbKj37DhoxK1K3J5KKzoq22RjtSwVgTePhBuzz");
+declare_id!("22nJsqqdzzcKf1gLf4BBH4dw6pRWtdp4E4ndi6fweHY2");
 
 #[program]
-pub mod btbOrcaDefiPool {
+pub mod btbdefipool {
     use super::*;
 
-    pub fn create(ctx: Context<Create>, name: String) -> ProgramResult {
+    pub fn initialize(ctx: Context<Initialize>, name: String) -> Result<()> {
         let investment = &mut ctx.accounts.investment;
         investment.name = name;
         investment.balance = 0;
         investment.owner = *ctx.accounts.user.key;
+        msg!("Greetings from: {:?}", ctx.program_id);
         Ok(())
     }
 
@@ -48,20 +49,20 @@ pub mod btbOrcaDefiPool {
     }
 }
 
-#[derive(Accounts)]
-pub struct Create<'info> {
-    #[account(init, payer=user, space=5000, seeds=[b"investoraccount", user.key().as_ref()], bump)]
-    pub investment: Account<'info, Investment>,
-    #[account(mut)]
-    pub user: Signer<'info>,
-    pub system_program: Program<'info, System>,
-}
-
 #[account]
 pub struct Investment {
     pub name: String,
     pub balance: u64,
     pub owner: Pubkey,
+}
+
+#[derive(Accounts)]
+pub struct Initialize<'info> {
+    #[account(init, payer=user, space=5000, seeds=[b"investoraccount", user.key().as_ref()], bump)]
+    pub investment: Account<'info, Investment>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+    pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
@@ -80,3 +81,4 @@ pub struct Withdraw<'info>{
     #[account(mut)]
     pub user: Signer<'info>,
 }
+

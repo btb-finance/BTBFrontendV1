@@ -5,17 +5,14 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-defipool = "EiJxyHEyR6utgW7DKojhE5dtBunVnTAis8pqTGw9xqGk"
-
-[programs.devnet]
-defipool = "EiJxyHEyR6utgW7DKojhE5dtBunVnTAis8pqTGw9xqGk"
+btbdefipool = "22nJsqqdzzcKf1gLf4BBH4dw6pRWtdp4E4ndi6fweHY2"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
-    
+
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
