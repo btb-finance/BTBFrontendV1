@@ -1,10 +1,12 @@
 // src/store.ts
 import { configureStore } from "@reduxjs/toolkit";
-import orcaReducer from "./slices/orcaSlice";
+import orcaReducer from "./slices/orca/orcaSlice";
+import orcaWhirlpoolSlice from "./slices/orca/whirlpoolSlice"
 
 export const store = configureStore({
   reducer: {
     orca: orcaReducer,
+    whirlpool: orcaWhirlpoolSlice,
   },
 });
 

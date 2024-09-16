@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import RadiumComponent from "@/components/main/home/RadiumComponent";
 import OrcaComponent from "@/components/main/home/OrcaComponent";
-import { fetchOrcaData } from "@/state-management/slices/orcaSlice";
-import { LIMIT } from "@/utils/home/orca_constants";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/state-management/store";
+import { fetchWhirlpoolData } from "@/state-management/slices/orca/whirlpoolSlice";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"radium" | "orca">("radium");
@@ -14,7 +13,7 @@ export default function Home() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchOrcaData(LIMIT));
+    dispatch(fetchWhirlpoolData());
   }, [dispatch]);
 
   const handleSimulateClick = (poolId: string) => {

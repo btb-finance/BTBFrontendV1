@@ -1,6 +1,4 @@
-// types.ts
-
-export interface RewardInfo {
+export interface OrcaRewardInfoType {
   mint: string;
   vault: string;
   authority: string;
@@ -8,7 +6,7 @@ export interface RewardInfo {
   growthGlobalX64: string;
 }
 
-export interface OrcaData {
+export interface OrcaDataType {
   address: string;
   whirlpoolsConfig: string;
   whirlpoolBump: number[];
@@ -28,11 +26,10 @@ export interface OrcaData {
   tokenVaultB: string;
   feeGrowthGlobalB: string;
   rewardLastUpdatedTimestamp: string;
-  rewardInfos: RewardInfo[];
+  rewardInfos: OrcaRewardInfoType[];
 }
-
-export interface OrcaDataResponse {
-  data: OrcaData[];
+export interface OrcaDataResponseType {
+  data: OrcaDataType[];
   meta: {
     cursor: {
       previous: string | null;
@@ -40,8 +37,7 @@ export interface OrcaDataResponse {
     };
   };
 }
-
-export interface TokenData {
+export interface TokenDataType {
   address: string;
   decimals: number;
   name: string;
@@ -51,10 +47,16 @@ export interface TokenData {
   tags: string[] | null;
   risk: string;
   blocked: boolean;
+  mint: string;
+  logoURI: string;
+  coingeckoId: string;
+  whitelisted: boolean;
+  poolToken: boolean;
+  token2022: boolean;
 }
 
-export interface TokenDataResponse {
-  data: TokenData[];
+export interface TokenDataResponseType {
+  data: TokenDataType[];
   meta: {
     cursor: {
       previous: string | null;
@@ -62,3 +64,50 @@ export interface TokenDataResponse {
     };
   };
 }
+export interface OrcaVolumeType {
+  day: number;
+  week: number;
+  month: number;
+}
+export interface OrcaPriceRangeType {
+  day: {
+    min: number;
+    max: number;
+  };
+  week: {
+    min: number;
+    max: number;
+  };
+  month: {
+    min: number;
+    max: number;
+  };
+}
+export interface OrcaWhirlpoolType {
+  address: string;
+  tokenA: TokenDataType;
+  tokenB: TokenDataType;
+  whitelisted: boolean;
+  token2022: boolean;
+  tickSpacing: number;
+  price: number;
+  lpFeeRate: number;
+  protocolFeeRate: number;
+  whirlpoolsConfig: string;
+  modifiedTimeMs: number;
+  tvl: number;
+  volume: OrcaVolumeType;
+  volumeDenominatedA: OrcaVolumeType;
+  volumeDenominatedB: OrcaVolumeType;
+  priceRange: OrcaPriceRangeType;
+  feeApr: OrcaVolumeType;
+  reward0Apr: OrcaVolumeType;
+  reward1Apr: OrcaVolumeType;
+  reward2Apr: OrcaVolumeType;
+  totalApr: OrcaVolumeType;
+}
+
+export interface OrcaApiResponseType {
+  whirlpools: OrcaWhirlpoolType[];
+}
+

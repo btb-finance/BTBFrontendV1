@@ -3,7 +3,7 @@ import OrcaTable from "@/components/main/home/OrcaTable";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
-import { setPage } from "@/state-management/slices/orcaSlice";
+import { setPage } from "@/state-management/slices/orca/orcaSlice";
 import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface OrcaComponentProps {
@@ -13,16 +13,16 @@ interface OrcaComponentProps {
 const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
   const dispatch: AppDispatch = useDispatch();
   const {
-    data: combinedData,
+    data: whirlpoolData,
     loading,
     currentPage,
     totalPages,
-  } = useSelector((state: RootState) => state.orca);
+  } = useSelector((state: RootState) => state.whirlpool);
 
   const getPaginatedOrcaData = () => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
-    return combinedData.slice(startIndex, endIndex);
+    return whirlpoolData.slice(startIndex, endIndex);
   };
 
   const handlePageChange = (newPage: number) => {

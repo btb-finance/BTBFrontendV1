@@ -1,9 +1,22 @@
-import {
-  OrcaData,
-  TokenData,
-} from "@/types/home/orca";
+import { OrcaApiResponseType, OrcaDataType, OrcaWhirlpoolType, TokenDataType } from "@/types/home/orca";
 
 const ORCA_BASE_URL = "https://pools-api.mainnet.orca.so";
+const API_ENDPOINT = "https://api.mainnet.orca.so/v1/whirlpool/list";
+
+export const getOrcaWhirlpools = async (): Promise<OrcaWhirlpoolType[]> => {
+  try {
+    const response = await fetch(API_ENDPOINT);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data: OrcaApiResponseType = await response.json();
+    return data.whirlpools;
+  } catch (error) {
+    console.error("Error fetching whirlpools:", error);
+    throw error;
+  }
+};
+
 
 const getPaginatedData = async <T>(
   url: string,
@@ -35,33 +48,35 @@ const getPaginatedData = async <T>(
   return results;
 };
 
-export const getOrcaData = async (limit: number): Promise<OrcaData[]> => {
+export const getOrcaData = async (limit: number): Promise<OrcaDataType[]> => {
   const url = `${ORCA_BASE_URL}/whirlpools`;
-  const response = await getPaginatedData<OrcaData>(url, limit);
+  const response = await getPaginatedData<OrcaDataType>(url, limit);
   return response;
 };
 
-export const getOrcaTokens = async (limit: number): Promise<TokenData[]> => {
+export const getOrcaTokens = async (
+  limit: number
+): Promise<TokenDataType[]> => {
   const url = `${ORCA_BASE_URL}/tokens`;
-  const response = await getPaginatedData<TokenData>(url, limit);
+  const response = await getPaginatedData<TokenDataType>(url, limit);
   return response;
 };
 
-export const filterOrcaData = (orcaData: OrcaData[]): OrcaData[] => {
+export const filterOrcaData = (orcaData: OrcaDataType[]): OrcaDataType[] => {
   return orcaData.filter(
     (data) => data.liquidity !== "0" && data.protocolFeeOwedA !== "0"
   );
 };
 
 export const combineOrcaAndTokenData = (
-  orcaData: OrcaData[],
-  tokenData: TokenData[]
-): (OrcaData & { tokenA?: TokenData; tokenB?: TokenData })[] => {
+  orcaData: OrcaDataType[],
+  tokenData: TokenDataType[]
+): (OrcaDataType & { tokenA?: TokenDataType; tokenB?: TokenDataType })[] => {
   const filteredOrcaData = filterOrcaData(orcaData);
-  const tokenMap = new Map<string, TokenData>();
+  const tokenMap = new Map<string, TokenDataType>();
 
   tokenData.forEach((token) => tokenMap.set(token.address, token));
-
+  
   return filteredOrcaData.map((orca) => ({
     ...orca,
     tokenA: tokenMap.get(orca.tokenMintA),

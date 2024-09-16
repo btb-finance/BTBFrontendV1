@@ -1,12 +1,15 @@
 import React from "react";
-import { OrcaData, TokenData } from "@/types/home/orca";
+import {
+  OrcaWhirlpoolType,
+} from "@/types/home/orca";
 
 interface OrcaTableProps {
-  data: (OrcaData & { tokenA?: TokenData; tokenB?: TokenData })[];
+  data: OrcaWhirlpoolType[];
   handleClick: (address: string) => void;
 }
 
 const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
+  console.log(data, "data");
   return (
     <table className="min-w-full divide-y divide-gray-700">
       <thead className="bg-gray-800">
@@ -15,19 +18,19 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
             Pool
           </th>
           <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-            Liquidity
+            Yield / TVL (24h)
           </th>
           <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-            Volume 24H
+            Volume (24h)
           </th>
           <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-            Fees 24H
+            TVL
           </th>
           <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-            APR 24H
+            Fees (24h)
           </th>
           <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-            APY 24H
+            Rewards (24h)
           </th>
           <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
             Actions
@@ -36,17 +39,15 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
       </thead>
       <tbody className="bg-gray-800 divide-y divide-gray-700">
         {data.map((pool) => {
-          const liquidity = parseFloat(pool.liquidity) || 0;
-          const volume24h = parseFloat(pool.volume24h) || 0;
-          const fees24h = parseFloat(pool.protocolFeeOwedA) || 0;
-
-          // Correct fee rate handling - assume it's a percentage directly
-          const feeRate = parseFloat(pool.feeRate) / 10000 || 0; 
+          const volume24h = parseFloat(pool.volume.day.toFixed(0));
+          const feeRate = pool.price / 1000 || 0;
           const formattedFeeRate = feeRate.toFixed(2);
-
-          // Avoid division by zero
-          const apr24h = liquidity > 0 ? ((feeRate * volume24h) / liquidity).toFixed(2) : "0.00";
-          const apy24h = liquidity > 0 ? ((1 + parseFloat(apr24h) / 100) ** 365 - 1).toFixed(2) : "0.00";
+          const tvl = parseFloat(pool.tvl.toFixed(0));
+          const fees24h = parseFloat(
+            (pool.lpFeeRate * pool.volume.day).toFixed(0)
+          );
+          const yieldTVL24h = parseFloat((((pool.volume.day * pool.lpFeeRate) / tvl) * 100).toFixed(2));
+          const rewards24h = pool.reward0Apr.day;
 
           return (
             <tr key={pool.address}>
@@ -54,14 +55,14 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
                 <div className="flex items-center space-x-2">
                   {pool.tokenA && (
                     <img
-                      src={pool.tokenA.image}
+                      src={pool.tokenA.logoURI}
                       alt={pool.tokenA.symbol}
                       className="w-8 h-8 rounded-full border-4 border-gray-500"
                     />
                   )}
                   {pool.tokenB && (
                     <img
-                      src={pool.tokenB.image}
+                      src={pool.tokenB.logoURI}
                       alt={pool.tokenB.symbol}
                       className="w-8 h-8 rounded-full border-4 border-gray-500 relative right-4"
                     />
@@ -78,17 +79,19 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
                   </div>
                 </div>
               </td>
+              <td className="px-6 py-4 whitespace-nowrap">{yieldTVL24h > 0.01 ? yieldTVL24h : "<0.01"}%</td>
               <td className="px-6 py-4 whitespace-nowrap">
-                ${liquidity.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ${volume24h.toLocaleString()}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                ${volume24h.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ${tvl.toLocaleString()}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                ${fees24h.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                ${fees24h.toLocaleString()}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">{apr24h}%</td>
-              <td className="px-6 py-4 whitespace-nowrap">{apy24h}%</td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                ${rewards24h.toLocaleString()}
+              </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <button
                   className="px-4 py-2 bg-gradient-to-r from-[#5493ff] via-[#af3fff] to-[#ff82fa] rounded-full text-white font-semibold hover:opacity-90 transition-opacity duration-200"

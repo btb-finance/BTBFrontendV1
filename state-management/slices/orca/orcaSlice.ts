@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { OrcaData, TokenData } from "@/types/home/orca";
+import { OrcaDataType, TokenDataType } from "@/types/home/orca";
 import {
   combineOrcaAndTokenData,
   getOrcaData,
@@ -8,7 +8,7 @@ import {
 import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface OrcaState {
-  data: (OrcaData & { tokenA?: TokenData; tokenB?: TokenData })[];
+  data: (OrcaDataType & { tokenA?: TokenDataType; tokenB?: TokenDataType })[];
   loading: boolean;
   error: string | null;
   currentPage: number;

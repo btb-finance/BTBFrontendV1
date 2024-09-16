@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import RadiumTable from "@/components/main/home/RadiumTable";
 import { RadiumPool } from "@/types/home/radium";
 import { fetchRadiumData } from "@/services/radium_api";
+import { PoolTypeKey } from "@/utils/home/radium_constants";
 
 const PAGE_SIZE = 10;
 
@@ -13,12 +14,32 @@ const RadiumComponent: React.FC<RadiumComponentProps> = ({ onClick }) => {
   const [data, setData] = useState<RadiumPool[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(true);
+  const [poolType, setPoolType] = useState<PoolTypeKey>("all");
+  const [poolSortField, setPoolSortField] = useState<string>("default");
+  const [sortType, setSortType] = useState<string>("desc");
+
+  const handlePoolType = (type: PoolTypeKey) => {
+    setPoolType(type);
+  };
+  const handleSort = (field: string) => {
+    setPoolSortField(field);
+    setSortType("desc");
+  };
+  const handleSortType = (type: string) => {
+    setSortType(type);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const result = await fetchRadiumData(currentPage, PAGE_SIZE, "liquidity");
+        const result = await fetchRadiumData(
+          currentPage,
+          PAGE_SIZE,
+          poolSortField,
+          sortType,
+          poolType
+        );
         if (result) {
           setData(result.data.data);
         }
@@ -30,7 +51,7 @@ const RadiumComponent: React.FC<RadiumComponentProps> = ({ onClick }) => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, poolSortField, poolType, sortType]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0) {
@@ -62,7 +83,16 @@ const RadiumComponent: React.FC<RadiumComponentProps> = ({ onClick }) => {
               Next
             </button>
           </div>
-          <RadiumTable data={data} handleClick={onClick} />
+          <RadiumTable
+            data={data}
+            handleClick={onClick}
+            handlePoolType={handlePoolType}
+            handleSort={handleSort}
+            handleSortType={handleSortType}
+            poolType={poolType}
+            poolSortField={poolSortField}
+            sortType={sortType}
+          />
         </>
       )}
     </div>
