@@ -5,6 +5,8 @@ import OrcaComponent from "@/components/main/home/OrcaComponent";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/state-management/store";
 import { fetchWhirlpoolData } from "@/state-management/slices/orca/whirlpoolSlice";
+import { fetchOrcaData } from "@/state-management/slices/orca/orcaSlice";
+import { LIMIT } from "@/utils/home/orca_constants";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"radium" | "orca">("radium");
@@ -20,6 +22,13 @@ export default function Home() {
    const intervalId = setInterval(fetchData, 10 * 60 * 1000); 
    return () => clearInterval(intervalId);
  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchData = () => {
+      dispatch(fetchOrcaData(LIMIT));
+    };
+    fetchData();
+  }, [dispatch]);
  
   const handleSimulateClick = (poolId: string) => {
     router.push(`/pool/${poolId}`);

@@ -8,35 +8,41 @@ import {
 import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface OrcaState {
-  data: (OrcaDataType & { tokenA?: TokenDataType; tokenB?: TokenDataType })[];
+  // data: (OrcaDataType & { tokenA?: TokenDataType; tokenB?: TokenDataType })[];
+  tokens: TokenDataType[];
   loading: boolean;
   error: string | null;
-  currentPage: number;
-  totalPages: number;
+  // currentPage: number;
+  // totalPages: number;
 }
 
 const initialState: OrcaState = {
-  data: [],
+  // data: [],
+  tokens: [],
   loading: false,
   error: null,
-  currentPage: 1,
-  totalPages: 0,
+  // currentPage: 1,
+  // totalPages: 0,
 };
 
 export const fetchOrcaData = createAsyncThunk(
   "orca/fetchOrcaData",
   async (limit: number, { rejectWithValue }) => {
     try {
-      const [orcaDataResult, orcaTokensResult] = await Promise.all([
-        getOrcaData(limit),
+      // const [orcaDataResult, orcaTokensResult] = await Promise.all([
+      //   getOrcaData(limit),
+      //   getOrcaTokens(limit),
+      // ]);
+
+      const [orcaTokensResult] = await Promise.all([
         getOrcaTokens(limit),
       ]);
 
-      const combined = combineOrcaAndTokenData(
-        orcaDataResult,
-        orcaTokensResult
-      );
-      return combined;
+      // const combined = combineOrcaAndTokenData(
+      //   orcaDataResult,
+      //   orcaTokensResult
+      // );
+      return { tokens: orcaTokensResult };
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -47,9 +53,9 @@ const orcaSlice = createSlice({
   name: "orca",
   initialState,
   reducers: {
-    setPage: (state, action) => {
-      state.currentPage = action.payload;
-    },
+    // setPage: (state, action) => {
+    //   state.currentPage = action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -58,9 +64,12 @@ const orcaSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchOrcaData.fulfilled, (state, action) => {
-        state.data = action.payload;
+        // state.data = action.payload.combined;
+        state.tokens = action.payload.tokens;
         state.loading = false;
-        state.totalPages = Math.ceil(action.payload.length / PAGE_SIZE);
+        // state.totalPages = Math.ceil(
+        //   action.payload.combined.length / PAGE_SIZE
+        // );
       })
       .addCase(fetchOrcaData.rejected, (state, action) => {
         state.loading = false;
@@ -69,6 +78,6 @@ const orcaSlice = createSlice({
   },
 });
 
-export const { setPage } = orcaSlice.actions;
+// export const { setPage } = orcaSlice.actions;
 
 export default orcaSlice.reducer;

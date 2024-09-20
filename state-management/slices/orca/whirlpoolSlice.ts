@@ -5,18 +5,22 @@ import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface WhirlpoolState {
   data: OrcaWhirlpoolType[];
+  filteredData: OrcaWhirlpoolType[];
   loading: boolean;
   error: string | null;
   currentPage: number;
   totalPages: number;
+  searchAddresses: string[];
 }
 
 const initialState: WhirlpoolState = {
   data: [],
+  filteredData: [],
   loading: false,
   error: null,
   currentPage: 1,
   totalPages: 0,
+  searchAddresses: [],
 };
 
 export const fetchWhirlpoolData = createAsyncThunk(
@@ -38,6 +42,30 @@ const orcaWhirlpoolSlice = createSlice({
     setPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setTokenSearch: (state, action) => {
+      const addresses = action.payload;
+      state.searchAddresses = addresses;
+
+      if (addresses.length === 0) {
+        state.filteredData = state.data;
+      } else if (addresses.length === 1) {
+        const address = addresses[0];
+        state.filteredData = state.data.filter(
+          (whirlpool) =>
+            whirlpool.tokenA.mint === address ||
+            whirlpool.tokenB.mint === address
+        );
+      } else if (addresses.length === 2) {
+        const [address1, address2] = addresses;
+        state.filteredData = state.data.filter(
+          (whirlpool) =>
+            (whirlpool.tokenA.mint === address1 &&
+              whirlpool.tokenB.mint === address2) ||
+            (whirlpool.tokenA.mint === address2 &&
+              whirlpool.tokenB.mint === address1)
+        );
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -47,6 +75,7 @@ const orcaWhirlpoolSlice = createSlice({
       })
       .addCase(fetchWhirlpoolData.fulfilled, (state, action) => {
         state.data = action.payload;
+        state.filteredData = action.payload;
         state.loading = false;
         state.totalPages = Math.ceil(action.payload.length / PAGE_SIZE);
       })
@@ -57,6 +86,6 @@ const orcaWhirlpoolSlice = createSlice({
   },
 });
 
-export const { setPage } = orcaWhirlpoolSlice.actions;
+export const { setPage, setTokenSearch } = orcaWhirlpoolSlice.actions;
 
 export default orcaWhirlpoolSlice.reducer;
