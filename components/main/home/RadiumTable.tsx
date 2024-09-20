@@ -48,7 +48,16 @@ interface RadiumDashboardProps {
   poolSortField: string;
   sortType: string;
 }
-
+type ChangeRecord = Record<
+  string,
+  Partial<Record<keyof RadiumPool | keyof DayData, number>>
+>;
+type PoolChanges = {
+  tvl?: number;
+  volume?: number;
+  volumeFee?: number;
+  apr?: number;
+};
 const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
   data,
   handleClick,
@@ -67,9 +76,7 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
     direction: "ascending",
   });
   const [prevData, setPrevData] = useState<Record<string, RadiumPool>>({});
-  const [changes, setChanges] = useState<
-    Record<string, Partial<Record<keyof RadiumPool, number>>>
-  >({});
+  const [changes, setChanges] = useState<ChangeRecord>({});
   const [animatedRows, setAnimatedRows] = useState<string[]>([]);
   const [hoveredRow, setHoveredRow] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,10 +85,7 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
   const itemsPerPage = 10;
 
   useEffect(() => {
-    const newChanges: Record<
-      string,
-      Partial<Record<keyof RadiumPool, number>>
-    > = {};
+    const newChanges: ChangeRecord = {};
     const newPrevData: Record<string, RadiumPool> = {};
 
     data.forEach((pool) => {
@@ -91,15 +95,12 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
       if (prev) {
         newChanges[pool.id] = {
           tvl: calculatePercentageChange(prev.tvl, pool.tvl),
-          "day.volume": calculatePercentageChange(
-            prev.day.volume,
-            pool.day.volume
-          ),
-          "day.volumeFee": calculatePercentageChange(
+          volume: calculatePercentageChange(prev.day.volume, pool.day.volume), // Flattened
+          volumeFee: calculatePercentageChange(
             prev.day.volumeFee,
             pool.day.volumeFee
-          ),
-          "day.apr": calculatePercentageChange(prev.day.apr, pool.day.apr),
+          ), // Flattened
+          apr: calculatePercentageChange(prev.day.apr, pool.day.apr), // Flattened
         };
       }
     });
@@ -118,17 +119,16 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
   };
 
   const filteredAndSortedData = useMemo(() => {
-    return data
-      .sort((a, b) => {
-        if (sortConfig.key !== null) {
-          const aValue = a[sortConfig.key] as number;
-          const bValue = b[sortConfig.key] as number;
-          return sortConfig.direction === "ascending"
-            ? aValue - bValue
-            : bValue - aValue;
-        }
-        return 0;
-      });
+    return data.sort((a, b) => {
+      if (sortConfig.key !== null) {
+        const aValue = a[sortConfig.key] as number;
+        const bValue = b[sortConfig.key] as number;
+        return sortConfig.direction === "ascending"
+          ? aValue - bValue
+          : bValue - aValue;
+      }
+      return 0;
+    });
   }, [data, sortConfig, showLowLiquidity]);
 
   const paginatedData = useMemo(() => {
@@ -498,7 +498,7 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
                         maximumFractionDigits: 2,
                       })}
                     </div>
-                    {renderChangeIndicator(changes[pool.id]?.["day.volume"])}
+                    {renderChangeIndicator(changes[pool.id]?.volume)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div
@@ -512,7 +512,7 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
                         maximumFractionDigits: 2,
                       })}
                     </div>
-                    {renderChangeIndicator(changes[pool.id]?.["day.volumeFee"])}
+                    {renderChangeIndicator(changes[pool.id]?.volumeFee)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div
@@ -522,7 +522,7 @@ const RadiumDashboard: React.FC<RadiumDashboardProps> = ({
                     >
                       {pool.day.apr.toFixed(2)}%
                     </div>
-                    {renderChangeIndicator(changes[pool.id]?.["day.apr"])}
+                    {renderChangeIndicator(changes[pool.id]?.apr)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button

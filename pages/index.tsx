@@ -12,10 +12,15 @@ export default function Home() {
 
   const dispatch: AppDispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchWhirlpoolData());
-  }, [dispatch]);
-
+ useEffect(() => {
+   const fetchData = () => {
+     dispatch(fetchWhirlpoolData());
+   };
+   fetchData();
+   const intervalId = setInterval(fetchData, 10 * 60 * 1000); 
+   return () => clearInterval(intervalId);
+ }, [dispatch]);
+ 
   const handleSimulateClick = (poolId: string) => {
     router.push(`/pool/${poolId}`);
   };

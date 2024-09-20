@@ -51,6 +51,9 @@ const RadiumComponent: React.FC<RadiumComponentProps> = ({ onClick }) => {
     };
 
     fetchData();
+
+    const intervalId = setInterval(fetchData, 10 * 60 * 1000);
+    return () => clearInterval(intervalId);
   }, [currentPage, poolSortField, poolType, sortType]);
 
   const handlePageChange = (newPage: number) => {

@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import OrcaTable from "@/components/main/home/OrcaTable";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
-import { setPage } from "@/state-management/slices/orca/orcaSlice";
+import { setPage } from "@/state-management/slices/orca/whirlpoolSlice";
 import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface OrcaComponentProps {
@@ -30,6 +29,8 @@ const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
       dispatch(setPage(newPage));
     }
   };
+
+  console.log(getPaginatedOrcaData());
 
   return (
     <div>
