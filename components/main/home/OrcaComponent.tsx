@@ -1,63 +1,68 @@
-import { useEffect, useState } from "react";
 import OrcaTable from "@/components/main/home/OrcaTable";
-import {
-  combineOrcaAndTokenData,
-  getOrcaData,
-  getOrcaTokens,
-} from "@/services/orca_api";
-import { OrcaData, TokenData } from "@/types/home/orca";
-
-const PAGE_SIZE = 10;
-const LIMIT = 1000;
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/state-management/store";
+import { setPage, setTokenSearch } from "@/state-management/slices/orca/whirlpoolSlice";
+import { PAGE_SIZE } from "@/utils/home/orca_constants";
+import { useMemo, useState } from "react";
+import { TokenDataType } from "@/types/home/orca";
+import useDebounce from "@/hooks/useDebounce";
 
 interface OrcaComponentProps {
   onClick: (poolId: string) => void;
 }
 
 const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
-  const [combinedData, setCombinedData] = useState<
-    (OrcaData & { tokenA?: TokenData; tokenB?: TokenData })[]
-  >([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState<boolean>(true);
+  const dispatch: AppDispatch = useDispatch();
+  const {
+    filteredData: whirlpoolData,
+    loading,
+    currentPage,
+    totalPages,
+  } = useSelector((state: RootState) => state.whirlpool);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const [orcaDataResult, orcaTokensResult] = await Promise.all([
-          getOrcaData(LIMIT), 
-          getOrcaTokens(LIMIT),
-        ]);
-
-        const combined = combineOrcaAndTokenData(
-          orcaDataResult,
-          orcaTokensResult
-        );
-        setCombinedData(combined);
-
-        setTotalPages(Math.ceil(combined.length / PAGE_SIZE));
-      } catch (error) {
-        console.error("Error fetching Orca data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { tokens } = useSelector((state: RootState) => state.orca);
 
   const getPaginatedOrcaData = () => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
-    return combinedData.slice(startIndex, endIndex);
+    return whirlpoolData.slice(startIndex, endIndex);
   };
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      dispatch(setPage(newPage));
     }
+  };
+
+   const handleSearch = (address: string[]) => {
+      dispatch(setTokenSearch(address));
+   };
+
+  const [selectedTokens, setSelectedTokens] = useState<TokenDataType[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  const openDropdown = useMemo(
+    () => debouncedSearchQuery.length > 2,
+    [debouncedSearchQuery]
+  );
+
+  const handleSelectToken = (token: TokenDataType) => {
+    const newSelectedTokens = [...selectedTokens, token];
+    setSelectedTokens(newSelectedTokens);
+    setSearchQuery("");
+    const updatedTokensAddress = newSelectedTokens.map(t => t.address);
+    handleSearch(updatedTokensAddress);
+  };
+
+  const handelRemoveToken = (tokenToRemove: TokenDataType) => {
+     const newSelectedTokens = selectedTokens.filter(
+       (token) => token.address !== tokenToRemove.address
+     );
+    setSelectedTokens(newSelectedTokens);
+    const updatedTokensAddress = newSelectedTokens.map((t) => t.address);
+    handleSearch(updatedTokensAddress);
   };
 
   return (
@@ -84,7 +89,72 @@ const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
               Next
             </button>
           </div>
-          <OrcaTable data={getPaginatedOrcaData()} handleClick={onClick} />
+          <div className="flex items-center border-2 border-gray-500 w-1/4 p-2 rounded-md mb-10 relative">
+            {selectedTokens.map((token) => (
+              <div
+                key={token.address}
+                className="bg-gray-700 flex w-28 py-1 me-3 items-center px-2 rounded-sm relative"
+              >
+                <img
+                  src={token.image}
+                  alt={token.symbol}
+                  className="w-7 h-7 rounded-[50%]"
+                />
+                <p className="ml-2">{token.symbol}</p>
+                <button
+                  className="ml-2 text-gray-400 text-xl absolute top-[.7px] right-2"
+                  onClick={() => handelRemoveToken(token)}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+            {selectedTokens.length < 2 && (
+              <input
+                className="border-0 bg-transparent outline-0 text-white"
+                placeholder="Search token"
+                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery}
+              />
+            )}
+            {openDropdown && (
+              <ul className="absolute w-full top-12 left-0 h-80 overflow-y-auto z-10 rounded-md">
+                {tokens
+                  ?.filter(
+                    (token) =>
+                      token?.name
+                        ?.toLowerCase()
+                        ?.includes(debouncedSearchQuery?.toLowerCase()) ||
+                      token?.symbol
+                        ?.toLowerCase()
+                        ?.includes(debouncedSearchQuery?.toLowerCase()) ||
+                      token?.address
+                        ?.toLowerCase()
+                        ?.includes(debouncedSearchQuery?.toLowerCase())
+                  )
+                  ?.map((token) => (
+                    <li
+                      key={token.address}
+                      className="bg-gray-700 flex p-3 hover:bg-slate-600 items-center"
+                      onClick={() => handleSelectToken(token)}
+                    >
+                      <img
+                        src={token.image}
+                        className="w-7 h-7 rounded-[50%]"
+                      />
+                      <p className="ml-2 flex flex-col">
+                        <span>{token.symbol}</span>
+                        <span className="text-[10px]">{token.name}</span>
+                      </p>
+                    </li>
+                  ))}
+              </ul>
+            )}
+          </div>
+
+          <div className="rounded-xl bg-gray-800 p-4">
+            <OrcaTable data={getPaginatedOrcaData()} handleClick={onClick} />
+          </div>
         </>
       )}
     </div>

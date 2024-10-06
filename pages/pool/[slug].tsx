@@ -71,7 +71,6 @@ export default function PoolDetails() {
           </button>
         </div>
 
-        {/* Card 2: Deposit and Create Position */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-4">Deposit</h2>
           <div className="flex flex-col mb-4">
