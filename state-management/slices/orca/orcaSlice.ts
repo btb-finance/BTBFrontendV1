@@ -4,12 +4,13 @@ import {
   combineOrcaAndTokenData,
   getOrcaData,
   getOrcaTokens,
+  getOrcaTokensPrice,
 } from "@/services/orca_api";
 import { PAGE_SIZE } from "@/utils/home/orca_constants";
 
 interface OrcaState {
   // data: (OrcaDataType & { tokenA?: TokenDataType; tokenB?: TokenDataType })[];
-  tokens: TokenDataType[];
+  tokens: (TokenDataType & { price?: string })[];
   loading: boolean;
   error: string | null;
   // currentPage: number;
@@ -34,15 +35,21 @@ export const fetchOrcaData = createAsyncThunk(
       //   getOrcaTokens(limit),
       // ]);
 
-      const [orcaTokensResult] = await Promise.all([
-        getOrcaTokens(limit),
-      ]);
+      const orcaTokensResult = await getOrcaTokens(limit);
+      const tokenPrices = await getOrcaTokensPrice();
+
+       const tokensWithPrices = orcaTokensResult.map((token) => {
+         return {
+           ...token,
+           price: tokenPrices[token.address] || undefined, // Assuming token has an address property
+         };
+       });
 
       // const combined = combineOrcaAndTokenData(
       //   orcaDataResult,
       //   orcaTokensResult
       // );
-      return { tokens: orcaTokensResult };
+      return { tokens: tokensWithPrices };
     } catch (error: any) {
       return rejectWithValue(error.message);
     }

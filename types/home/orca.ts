@@ -53,6 +53,7 @@ export interface TokenDataType {
   whitelisted: boolean;
   poolToken: boolean;
   token2022: boolean;
+  price?: null | string
 }
 
 export interface TokenDataResponseType {

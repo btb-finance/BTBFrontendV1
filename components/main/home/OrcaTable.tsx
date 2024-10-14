@@ -19,7 +19,7 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
           "Rewards 24H",
           "Actions",
         ].map((header) => (
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hover:bg-gray-700">
+          <th key={header} className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hover:bg-gray-700">
             {header}
           </th>
         ))}

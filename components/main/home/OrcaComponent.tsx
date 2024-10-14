@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state-management/store";
 import { setPage, setTokenSearch } from "@/state-management/slices/orca/whirlpoolSlice";
 import { PAGE_SIZE } from "@/utils/home/orca_constants";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TokenDataType } from "@/types/home/orca";
 import useDebounce from "@/hooks/useDebounce";
+import { getOrcaTokensPrice } from "@/services/orca_api";
 
 interface OrcaComponentProps {
   onClick: (poolId: string) => void;
@@ -65,6 +66,24 @@ const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
     handleSearch(updatedTokensAddress);
   };
 
+  const filteredAndSortedTokens = useMemo(() => {
+    return tokens
+      ?.filter(
+        (token) =>
+          token?.symbol
+            ?.toLowerCase()
+            ?.includes(debouncedSearchQuery?.toLowerCase()) ||
+          token?.address
+            ?.toLowerCase()
+            ?.includes(debouncedSearchQuery?.toLowerCase())
+      )
+      ?.sort((a, b) => {
+        const priceA = parseFloat(a.price || "0");
+        const priceB = parseFloat(b.price || "0");
+        return priceB - priceA; // Sort in descending order
+      });
+  }, [tokens, debouncedSearchQuery]);
+
   return (
     <div>
       {loading && <p>Loading...</p>}
@@ -119,20 +138,7 @@ const OrcaComponent: React.FC<OrcaComponentProps> = ({ onClick }) => {
             )}
             {openDropdown && (
               <ul className="absolute w-full top-12 left-0 h-80 overflow-y-auto z-10 rounded-md">
-                {tokens
-                  ?.filter(
-                    (token) =>
-                      token?.name
-                        ?.toLowerCase()
-                        ?.includes(debouncedSearchQuery?.toLowerCase()) ||
-                      token?.symbol
-                        ?.toLowerCase()
-                        ?.includes(debouncedSearchQuery?.toLowerCase()) ||
-                      token?.address
-                        ?.toLowerCase()
-                        ?.includes(debouncedSearchQuery?.toLowerCase())
-                  )
-                  ?.map((token) => (
+                {filteredAndSortedTokens?.map((token) => (
                     <li
                       key={token.address}
                       className="bg-gray-700 flex p-3 hover:bg-slate-600 items-center"

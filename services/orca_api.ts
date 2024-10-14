@@ -1,11 +1,20 @@
-import { OrcaApiResponseType, OrcaDataType, OrcaWhirlpoolType, TokenDataType } from "@/types/home/orca";
+import {
+  OrcaApiResponseType,
+  OrcaDataType,
+  OrcaWhirlpoolType,
+  TokenDataType,
+} from "@/types/home/orca";
 
 const ORCA_BASE_URL = "https://pools-api.mainnet.orca.so";
-const API_ENDPOINT = "https://api.mainnet.orca.so/v1/whirlpool/list";
+const ORCA_DATA_ENDPOINT = "https://api.mainnet.orca.so/v1/whirlpool/list";
+const ORCA_TOKENS_PRICE_ENDPOINT =
+  "https://pools-api.mainnet.orca.so/prices?amount=100000000";
 
+
+// data that is shown in table
 export const getOrcaWhirlpools = async (): Promise<OrcaWhirlpoolType[]> => {
   try {
-    const response = await fetch(API_ENDPOINT);
+    const response = await fetch(ORCA_DATA_ENDPOINT);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -17,6 +26,19 @@ export const getOrcaWhirlpools = async (): Promise<OrcaWhirlpoolType[]> => {
   }
 };
 
+export const getOrcaTokensPrice = async (): Promise<Record<string, string>> => {
+  try {
+    const response = await fetch(ORCA_TOKENS_PRICE_ENDPOINT);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching whirlpools:", error);
+    throw error;
+  }
+};
 
 const getPaginatedData = async <T>(
   url: string,
@@ -76,7 +98,7 @@ export const combineOrcaAndTokenData = (
   const tokenMap = new Map<string, TokenDataType>();
 
   tokenData.forEach((token) => tokenMap.set(token.address, token));
-  
+
   return filteredOrcaData.map((orca) => ({
     ...orca,
     tokenA: tokenMap.get(orca.tokenMintA),
