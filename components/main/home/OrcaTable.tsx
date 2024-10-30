@@ -1,4 +1,15 @@
 import React from "react";
+import { useState, useMemo } from "react";
+import {
+  BarChart2,
+  DollarSign,
+  Percent,
+  Settings,
+  Moon,
+  Sun,
+  HelpCircle,
+  Bell,
+} from "lucide-react";
 import { OrcaWhirlpoolType } from "@/types/home/orca";
 
 interface OrcaTableProps {
@@ -7,8 +18,156 @@ interface OrcaTableProps {
 }
 
 const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const totalLiquidity = useMemo(
+    () => data.reduce((sum, pool) => sum + pool.tvl, 0),
+    [data]
+  );
+  const totalVolume = useMemo(
+    () => data.reduce((sum, pool) => sum + pool.volume.day, 0),
+    [data]
+  );
+  const averageAPR = useMemo(
+    () => data.reduce((sum, pool) => sum + pool.totalApr.day, 0) / data.length,
+    [data]
+  );
   return (
-    <table className="min-w-full divide-y divide-gray-700 rounded-lg overflow-hidden">
+    <div 
+    className={`${
+      isDarkMode ? "bg-gray-900" : "bg-gray-100"
+    } min-h-screen p-6`}
+    >
+       <header className="flex justify-between items-center mb-8">
+        <h1
+          className={`text-3xl font-bold ${
+            isDarkMode ? "text-white" : "text-gray-800"
+          }`}
+        >
+          Orca Pool Dashboard
+        </h1>
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="p-2 rounded-full hover:bg-gray-700"
+          >
+            {isDarkMode ? (
+              <Sun className="text-yellow-400" />
+            ) : (
+              <Moon className="text-gray-600" />
+            )}
+          </button>
+          <button className="p-2 rounded-full hover:bg-gray-700">
+            <Bell className={isDarkMode ? "text-white" : "text-gray-800"} />
+          </button>
+          <button className="p-2 rounded-full hover:bg-gray-700">
+            <Settings className={isDarkMode ? "text-white" : "text-gray-800"} />
+          </button>
+          <button className="p-2 rounded-full hover:bg-gray-700">
+            <HelpCircle
+              className={isDarkMode ? "text-white" : "text-gray-800"}
+            />
+          </button>
+        </div>
+      </header>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div
+          className={`p-6 rounded-lg shadow-lg ${
+            isDarkMode ? "bg-gray-800" : "bg-white"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <h2
+              className={`text-xl font-semibold ${
+                isDarkMode ? "text-white" : "text-gray-800"
+              }`}
+            >
+              Total Liquidity
+            </h2>
+            <DollarSign
+              className={`w-8 h-8 ${
+                isDarkMode ? "text-blue-400" : "text-blue-600"
+              }`}
+            />
+          </div>
+          <p
+            className={`text-3xl font-bold mt-2 ${
+              isDarkMode ? "text-white" : "text-gray-800"
+            }`}
+          >
+            $
+            {totalLiquidity.toLocaleString(undefined, {
+              maximumFractionDigits: 0,
+            })}
+          </p>
+        </div>
+        <div
+          className={`p-6 rounded-lg shadow-lg ${
+            isDarkMode ? "bg-gray-800" : "bg-white"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <h2
+              className={`text-xl font-semibold ${
+                isDarkMode ? "text-white" : "text-gray-800"
+              }`}
+            >
+              24h Volume
+            </h2>
+            <BarChart2
+              className={`w-8 h-8 ${
+                isDarkMode ? "text-green-400" : "text-green-600"
+              }`}
+            />
+          </div>
+          <p
+            className={`text-3xl font-bold mt-2 ${
+              isDarkMode ? "text-white" : "text-gray-800"
+            }`}
+          >
+            $
+            {totalVolume.toLocaleString(undefined, {
+              maximumFractionDigits: 0,
+            })}
+          </p>
+        </div>
+        <div
+          className={`p-6 rounded-lg shadow-lg ${
+            isDarkMode ? "bg-gray-800" : "bg-white"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <h2
+              className={`text-xl font-semibold ${
+                isDarkMode ? "text-white" : "text-gray-800"
+              }`}
+            >
+              Average APR
+            </h2>
+            <Percent
+              className={`w-8 h-8 ${
+                isDarkMode ? "text-purple-400" : "text-purple-600"
+              }`}
+            />
+          </div>
+          <p
+            className={`text-3xl font-bold mt-2 ${
+              isDarkMode ? "text-white" : "text-gray-800"
+            }`}
+          >
+            {averageAPR.toFixed(2)}%
+          </p>
+        </div>
+      </div>
+      <div
+          className={`bg-${
+            isDarkMode ? "gray-800" : "white"
+          } p-6 rounded-lg shadow-xl`}
+      >
+        <table 
+           className={`min-w-full divide-y ${
+            isDarkMode ? "divide-gray-700" : "divide-gray-200"
+          }`}
+        >
       <thead className="bg-gray-800 pb-4">
         {[
           "Pool",
@@ -19,7 +178,7 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
           "Rewards 24H",
           "Actions",
         ].map((header) => (
-          <th key={header} className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hover:bg-gray-700">
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hover:bg-gray-700">
             {header}
           </th>
         ))}
@@ -97,6 +256,10 @@ const OrcaTable: React.FC<OrcaTableProps> = ({ data, handleClick }) => {
         })}
       </tbody>
     </table>
+      </div>
+      
+    </div>
+    
   );
 };
 

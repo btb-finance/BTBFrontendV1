@@ -53,7 +53,9 @@ export interface TokenDataType {
   whitelisted: boolean;
   poolToken: boolean;
   token2022: boolean;
-  price?: null | string
+  price?: null | string;
+  volume?:OrcaVolumeType;
+  
 }
 
 export interface TokenDataResponseType {
