@@ -19,7 +19,7 @@ export function MainNav() {
           <Link href="/" className="flex items-center space-x-2 transition-transform hover:scale-105">
             <div className="relative h-10 w-10">
               <Image
-                src="/btb-logo.png"
+                src="/BTB-logo.jpg"
                 alt="btb.finance"
                 width={40}
                 height={40}
