@@ -3,6 +3,7 @@ import { FeaturesSection } from "@/components/home/features-section";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { PlatformsOverview } from "@/components/home/platforms-overview";
 import { TokenSection } from "@/components/home/token-section";
+import { RoadmapSection } from "@/components/home/roadmap-section";
 import { CTASection } from "@/components/home/cta-section";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <PlatformsOverview />
       <HowItWorks />
       <TokenSection />
+      <RoadmapSection />
       <CTASection />
     </div>
   );
