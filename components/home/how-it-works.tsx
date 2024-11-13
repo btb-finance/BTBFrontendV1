@@ -4,8 +4,17 @@ import { Card } from "@/components/ui/card";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Wallet, Search, Coins, BarChart3 } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
-const steps = [
+interface Step {
+  step: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  gradient: string;
+}
+
+const steps: Step[] = [
   {
     step: "1",
     title: "Connect Wallet",
@@ -36,7 +45,12 @@ const steps = [
   },
 ];
 
-function StepCard({ step, title, description, icon: Icon, gradient, index, inView }) {
+interface StepCardProps extends Step {
+  index: number;
+  inView: boolean;
+}
+
+function StepCard({ step, title, description, icon: Icon, gradient, index, inView }: StepCardProps) {
   return (
     <Card 
       className={cn(

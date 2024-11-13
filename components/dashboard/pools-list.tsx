@@ -36,7 +36,11 @@ const pools = [
   },
 ];
 
-function MiniChart({ data }: { data: number[] }) {
+interface MiniChartProps {
+  data: number[];
+}
+
+function MiniChart({ data }: MiniChartProps) {
   const max = Math.max(...data);
   const min = Math.min(...data);
   const range = max - min;
@@ -57,7 +61,12 @@ function MiniChart({ data }: { data: number[] }) {
   );
 }
 
-function AnimatedNumber({ value, prefix = "" }) {
+interface AnimatedNumberProps {
+  value: number;
+  prefix?: string;
+}
+
+function AnimatedNumber({ value, prefix = "" }: AnimatedNumberProps) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {

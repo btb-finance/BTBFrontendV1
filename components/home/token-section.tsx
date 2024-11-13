@@ -5,8 +5,23 @@ import { Button } from "@/components/ui/button";
 import { PieChart, Coins, Lock, Users, Shield, Vote, Zap, Percent } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
 
-const tokenMetrics = [
+interface TokenMetric {
+  title: string;
+  value: string;
+  icon: LucideIcon;
+  description: string;
+}
+
+interface TokenUtility {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  gradient: string;
+}
+
+const tokenMetrics: TokenMetric[] = [
   {
     title: "Total Supply",
     value: "1,000,000,000 BTB",
@@ -33,7 +48,7 @@ const tokenMetrics = [
   }
 ];
 
-const tokenUtility = [
+const tokenUtility: TokenUtility[] = [
   {
     title: "Staking Rewards",
     description: "Earn passive income by staking BTB tokens",
@@ -60,7 +75,12 @@ const tokenUtility = [
   }
 ];
 
-function TokenUtilityCard({ title, description, icon: Icon, gradient, index, inView }) {
+interface TokenUtilityCardProps extends TokenUtility {
+  index: number;
+  inView: boolean;
+}
+
+function TokenUtilityCard({ title, description, icon: Icon, gradient, index, inView }: TokenUtilityCardProps) {
   return (
     <Card 
       className={cn(

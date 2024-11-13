@@ -5,8 +5,17 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Circle, Rocket, Lock, Users, Shield, Zap } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
 
-const milestones = [
+interface Milestone {
+  quarter: string;
+  title: string;
+  status: 'completed' | 'current' | 'upcoming';
+  items: string[];
+  icon: LucideIcon;
+}
+
+const milestones: Milestone[] = [
   {
     quarter: "Q2 2014",
     title: "Foundation Phase",
@@ -57,7 +66,12 @@ const milestones = [
   }
 ];
 
-function MilestoneCard({ quarter, title, status, items, icon: Icon, index, inView }) {
+interface MilestoneCardProps extends Milestone {
+  index: number;
+  inView: boolean;
+}
+
+function MilestoneCard({ quarter, title, status, items, icon: Icon, index, inView }: MilestoneCardProps) {
   return (
     <Card 
       className={cn(

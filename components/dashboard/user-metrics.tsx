@@ -43,7 +43,14 @@ const metrics = [
   },
 ];
 
-function AnimatedValue({ value, prefix = "", suffix = "", duration = 2000 }) {
+interface AnimatedValueProps {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}
+
+function AnimatedValue({ value, prefix = "", suffix = "", duration = 2000 }: AnimatedValueProps) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
