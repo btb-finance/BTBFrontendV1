@@ -1,0 +1,66 @@
+{
+  "version": "0.1.0",
+  "name": "pda_vesting",
+  "instructions": [
+    {
+      "name": "buy_token",
+      "accounts": [
+        {
+          "name": "btbSaleAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "btbSaleTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userBtbAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "btbMintAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "tokenType",
+          "type": "u8"
+        }
+      ]
+    }
+  ]
+}

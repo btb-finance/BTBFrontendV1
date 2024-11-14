@@ -19,7 +19,7 @@ export function MainNav() {
           <Link href="/" className="flex items-center space-x-2">
             <div className="relative h-8 w-8">
               <Image
-                src="/btb-logo.svg"
+                src="/btb.png"
                 alt="BTB Finance"
                 fill
                 className="object-contain"

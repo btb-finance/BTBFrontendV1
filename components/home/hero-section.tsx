@@ -53,7 +53,7 @@ export function HeroSection() {
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-1 bg-[#E31E24]/10 rounded-full">
             <div className="relative h-6 w-6">
               <Image
-                src="/btb-logo.png"
+                src="/btb.png"
                 alt="btb.finance"
                 width={24}
                 height={24}

@@ -17,7 +17,7 @@ interface Milestone {
 
 const milestones: Milestone[] = [
   {
-    quarter: "Q2 2014",
+    quarter: "Q2 2024",
     title: "Foundation Phase",
     status: "completed",
     items: [
@@ -29,7 +29,7 @@ const milestones: Milestone[] = [
     icon: Shield
   },
   {
-    quarter: "Q3 2014",
+    quarter: "Q3 2024",
     title: "Development Phase",
     status: "completed",
     items: [
@@ -41,7 +41,7 @@ const milestones: Milestone[] = [
     icon: Zap
   },
   {
-    quarter: "Q4 2014",
+    quarter: "Q4 2024",
     title: "Launch Phase",
     status: "current",
     items: [

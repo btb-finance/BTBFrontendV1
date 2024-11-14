@@ -3,7 +3,7 @@ export const getWebsiteStructuredData = () => ({
   "@type": "WebApplication",
   "name": "BTB Finance",
   "description": "Automated liquidity management platform for Solana DEXs",
-  "url": "https://btbfinance.com",
+  "url": "https://btb.finance",
   "applicationCategory": "DeFi",
   "operatingSystem": "Web-based",
   "offers": {

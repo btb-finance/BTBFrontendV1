@@ -2,10 +2,12 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PieChart, Coins, Lock, Users, Shield, Vote, Zap, Percent } from "lucide-react";
+import { Coins, Lock, Users, Shield, Vote, Zap, Percent } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
+import { useState } from "react";
+import { BuyTokenModal } from "@/components/token/buy-token-modal";
 
 interface TokenMetric {
   title: string;
@@ -25,7 +27,7 @@ const tokenMetrics: TokenMetric[] = [
   {
     title: "Total Supply",
     value: "1,000,000,000 BTB",
-    icon: PieChart,
+    icon: Coins,
     description: "Fixed supply, no inflation"
   },
   {
@@ -110,6 +112,8 @@ export function TokenSection() {
     threshold: 0.1
   });
 
+  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+
   return (
     <section className="py-24 relative overflow-hidden" id="token">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_var(--tw-gradient-stops))] from-primary/5 to-transparent" />
@@ -166,7 +170,7 @@ export function TokenSection() {
                   Full platform benefits
                 </li>
               </ul>
-              <Button className="w-full" size="lg">
+              <Button className="w-full" size="lg" onClick={() => setIsBuyModalOpen(true)}>
                 Buy BTB Tokens
               </Button>
             </Card>
@@ -188,13 +192,18 @@ export function TokenSection() {
                   Early adopter benefits
                 </li>
               </ul>
-              <Button className="w-full" size="lg" variant="outline">
+              <Button className="w-full" size="lg" variant="outline" onClick={() => setIsBuyModalOpen(true)}>
                 Join Strategic Sale
               </Button>
             </Card>
           </div>
         </div>
       </div>
+
+      <BuyTokenModal 
+        isOpen={isBuyModalOpen}
+        onClose={() => setIsBuyModalOpen(false)}
+      />
     </section>
   );
 }
