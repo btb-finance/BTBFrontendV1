@@ -10,13 +10,20 @@ export function CTASection() {
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold mb-6">Ready to Earn on BTB Finance?</h2>
         <p className="text-xl mb-8 opacity-90">
-          Connect your wallet and start investing in Solana's top liquidity pools.
+          Join the public sale and be part of Solana's leading liquidity management platform.
         </p>
-        <Link href="/dashboard">
-          <Button variant="secondary" size="lg" className="rounded-full">
-            Connect Wallet <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/buybtb">
+            <Button variant="secondary" size="lg" className="rounded-full">
+              Buy BTB Tokens <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+          <Link href="/dashboard">
+            <Button variant="outline" size="lg" className="rounded-full bg-transparent border-white/20 hover:bg-white/10">
+              Launch Dashboard <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

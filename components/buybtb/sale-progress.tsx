@@ -1,0 +1,46 @@
+"use client";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { TOTAL_SUPPLY, SOLD_AMOUNT } from "@/lib/constants/sale";
+import { AcceptedTokens } from "./accepted-tokens";
+
+export function SaleProgress() {
+  const progress = (SOLD_AMOUNT / TOTAL_SUPPLY) * 100;
+
+  return (
+    <Card className="hover:shadow-lg transition-all duration-300">
+      <CardContent className="p-8">
+        <h2 className="text-2xl font-bold mb-6">Sale Progress</h2>
+        <Progress value={progress} className="h-4 mb-4" />
+        <div className="flex justify-between text-sm text-muted-foreground mb-8">
+          <span>{SOLD_AMOUNT.toLocaleString()} BTB</span>
+          <span>{TOTAL_SUPPLY.toLocaleString()} BTB</span>
+        </div>
+
+        <div className="space-y-6">
+          <div>
+            <h3 className="font-semibold mb-3">Recommended Amounts</h3>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+                <span>$100 - $499</span>
+                <Badge variant="secondary">Starter</Badge>
+              </div>
+              <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+                <span>$500 - $999</span>
+                <Badge variant="secondary">Builder</Badge>
+              </div>
+              <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+                <span>$1,000+</span>
+                <Badge variant="secondary">Innovator</Badge>
+              </div>
+            </div>
+          </div>
+
+          <AcceptedTokens />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
