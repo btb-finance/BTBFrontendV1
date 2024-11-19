@@ -1,16 +1,30 @@
-"use client";
-
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
-import { useSolanaWallet } from "@/hooks/use-solana-wallet";
 import { shortenAddress } from "@/lib/utils";
+import { useCallback } from 'react';
 
 export function WalletConnectButton() {
-  const { connected, publicKey, connect, disconnect } = useSolanaWallet();
+  const { connected, connecting, publicKey, disconnect } = useWallet();
+  const { setVisible } = useWalletModal();
 
-  if (!connected) {
+  const handleConnect = useCallback(() => {
+    setVisible(true);
+  }, [setVisible]);
+
+  if (connecting) {
     return (
-      <Button onClick={connect} className="gap-2">
+      <Button disabled className="gap-2">
+        <Wallet className="h-4 w-4 animate-spin" />
+        Connecting...
+      </Button>
+    );
+  }
+
+  if (!connected || !publicKey) {
+    return (
+      <Button onClick={handleConnect} className="gap-2">
         <Wallet className="h-4 w-4" />
         Connect Wallet
       </Button>
@@ -20,7 +34,7 @@ export function WalletConnectButton() {
   return (
     <Button variant="outline" onClick={disconnect} className="gap-2">
       <Wallet className="h-4 w-4" />
-      {shortenAddress(publicKey?.toString())}
+      {shortenAddress(publicKey.toString())}
     </Button>
   );
 }

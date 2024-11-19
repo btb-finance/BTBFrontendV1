@@ -1,5 +1,5 @@
 {
-  "address": "abcxGrLevAiSMXHnzaasyrKwU4D58w8Ab5KBA9fcrWj",
+  "address": "ffa9d9U5PtPvnQRWmZspCpXxAmMNanWtTpQWbeTRVW9",
   "metadata": {
     "name": "pda_vesting",
     "version": "0.1.0",
@@ -680,6 +680,70 @@
       "args": []
     },
     {
+      "name": "transfer_admin",
+      "discriminator": [
+        42,
+        242,
+        66,
+        106,
+        228,
+        10,
+        111,
+        156
+      ],
+      "accounts": [
+        {
+          "name": "btb_sale_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  116,
+                  98,
+                  45,
+                  115,
+                  97,
+                  108,
+                  101,
+                  45,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "btb_sale_account.owner_initialize_wallet",
+                "account": "InitializeDataAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_admin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
       "name": "update_initialize",
       "discriminator": [
         112,
@@ -831,28 +895,18 @@
     },
     {
       "code": 6009,
-      "name": "ClaimNotAvailableYet",
-      "msg": "Claiming is not available yet."
+      "name": "SaleNotActive",
+      "msg": "Sale is not currently active"
     },
     {
       "code": 6010,
-      "name": "NothingToClaim",
-      "msg": "There is nothing to claim."
+      "name": "NoTokensToWithdraw",
+      "msg": "No tokens available to withdraw"
     },
     {
       "code": 6011,
       "name": "InvalidNewAdmin",
       "msg": "Cannot transfer admin to zero address"
-    },
-    {
-      "code": 6012,
-      "name": "SaleNotActive",
-      "msg": "Sale is not currently active"
-    },
-    {
-      "code": 6013,
-      "name": "NoTokensToWithdraw",
-      "msg": "No tokens available to withdraw"
     }
   ],
   "types": [

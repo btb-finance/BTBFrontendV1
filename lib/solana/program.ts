@@ -11,5 +11,5 @@ export async function getProgramInstance() {
     { commitment: 'confirmed' }
   );
 
-  return new Program(idl, BTB_PROGRAM_ID, provider);
+  return new Program(idl as any, BTB_PROGRAM_ID, provider);
 }

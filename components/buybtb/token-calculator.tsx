@@ -8,6 +8,7 @@ import { useState } from "react";
 import { BuyTokenModal } from "@/components/token/buy-token-modal";
 import { calculateTokenAmount, calculateVestingAmount } from "@/lib/utils/token-calculations";
 import { RECOMMENDED_AMOUNTS } from "@/lib/constants/sale";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export function TokenCalculator() {
   const [amount, setAmount] = useState("");
@@ -22,7 +23,7 @@ export function TokenCalculator() {
     <Card className="hover:shadow-lg transition-all duration-300" id="calculator">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Calculate BTB Tokens</h2>
-        
+
         <div className="space-y-6">
           <div>
             <label className="text-sm font-medium mb-2 block">Enter Amount in USD</label>

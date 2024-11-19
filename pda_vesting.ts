@@ -1,14 +1,20 @@
-{
-  "address": "abcxGrLevAiSMXHnzaasyrKwU4D58w8Ab5KBA9fcrWj",
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/pda_vesting.json`.
+ */
+export type PdaVesting = {
+  "address": "ffa9d9U5PtPvnQRWmZspCpXxAmMNanWtTpQWbeTRVW9",
   "metadata": {
-    "name": "pda_vesting",
+    "name": "pdaVesting",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
   },
   "instructions": [
     {
-      "name": "buy_token",
+      "name": "buyToken",
       "discriminator": [
         138,
         127,
@@ -21,7 +27,7 @@
       ],
       "accounts": [
         {
-          "name": "btb_sale_account",
+          "name": "btbSaleAccount",
           "pda": {
             "seeds": [
               {
@@ -48,27 +54,27 @@
               {
                 "kind": "account",
                 "path": "btb_sale_account.owner_initialize_wallet",
-                "account": "InitializeDataAccount"
+                "account": "initializeDataAccount"
               }
             ]
           }
         },
         {
-          "name": "user_token_account",
+          "name": "userTokenAccount",
           "writable": true
         },
         {
-          "name": "owner_token_account",
+          "name": "ownerTokenAccount",
           "writable": true
         },
         {
-          "name": "btb_sale_token_account",
+          "name": "btbSaleTokenAccount",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "account",
-                "path": "btb_sale_account"
+                "path": "btbSaleAccount"
               },
               {
                 "kind": "const",
@@ -109,7 +115,7 @@
               },
               {
                 "kind": "account",
-                "path": "btb_mint_account"
+                "path": "btbMintAccount"
               }
             ],
             "program": {
@@ -152,7 +158,7 @@
           }
         },
         {
-          "name": "user_btb_account",
+          "name": "userBtbAccount",
           "writable": true,
           "pda": {
             "seeds": [
@@ -199,7 +205,7 @@
               },
               {
                 "kind": "account",
-                "path": "btb_mint_account"
+                "path": "btbMintAccount"
               }
             ],
             "program": {
@@ -242,7 +248,7 @@
           }
         },
         {
-          "name": "btb_mint_account"
+          "name": "btbMintAccount"
         },
         {
           "name": "user",
@@ -250,15 +256,15 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         },
         {
-          "name": "token_program",
+          "name": "tokenProgram",
           "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         },
         {
-          "name": "associated_token_program",
+          "name": "associatedTokenProgram",
           "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
         }
       ],
@@ -268,13 +274,13 @@
           "type": "u64"
         },
         {
-          "name": "token_type",
+          "name": "tokenType",
           "type": "u8"
         }
       ]
     },
     {
-      "name": "emergency_withdraw",
+      "name": "emergencyWithdraw",
       "discriminator": [
         239,
         45,
@@ -287,7 +293,7 @@
       ],
       "accounts": [
         {
-          "name": "btb_sale_account",
+          "name": "btbSaleAccount",
           "pda": {
             "seeds": [
               {
@@ -314,19 +320,19 @@
               {
                 "kind": "account",
                 "path": "btb_sale_account.owner_initialize_wallet",
-                "account": "InitializeDataAccount"
+                "account": "initializeDataAccount"
               }
             ]
           }
         },
         {
-          "name": "btb_sale_token_account",
+          "name": "btbSaleTokenAccount",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "account",
-                "path": "btb_sale_account"
+                "path": "btbSaleAccount"
               },
               {
                 "kind": "const",
@@ -367,7 +373,7 @@
               },
               {
                 "kind": "account",
-                "path": "btb_mint_account"
+                "path": "btbMintAccount"
               }
             ],
             "program": {
@@ -410,11 +416,11 @@
           }
         },
         {
-          "name": "owner_btb_account",
+          "name": "ownerBtbAccount",
           "writable": true
         },
         {
-          "name": "btb_mint_account"
+          "name": "btbMintAccount"
         },
         {
           "name": "signer",
@@ -422,11 +428,11 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         },
         {
-          "name": "token_program",
+          "name": "tokenProgram",
           "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         }
       ],
@@ -446,7 +452,7 @@
       ],
       "accounts": [
         {
-          "name": "btb_sale_account",
+          "name": "btbSaleAccount",
           "writable": true,
           "pda": {
             "seeds": [
@@ -479,13 +485,13 @@
           }
         },
         {
-          "name": "btb_sale_token_account",
+          "name": "btbSaleTokenAccount",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "account",
-                "path": "btb_sale_account"
+                "path": "btbSaleAccount"
               },
               {
                 "kind": "const",
@@ -526,7 +532,7 @@
               },
               {
                 "kind": "account",
-                "path": "btb_mint_account"
+                "path": "btbMintAccount"
               }
             ],
             "program": {
@@ -569,7 +575,7 @@
           }
         },
         {
-          "name": "btb_mint_account"
+          "name": "btbMintAccount"
         },
         {
           "name": "signer",
@@ -577,15 +583,15 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         },
         {
-          "name": "token_program",
+          "name": "tokenProgram",
           "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         },
         {
-          "name": "associated_token_program",
+          "name": "associatedTokenProgram",
           "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
         }
       ],
@@ -603,25 +609,25 @@
           "type": "pubkey"
         },
         {
-          "name": "paypal_usd",
+          "name": "paypalUsd",
           "type": "pubkey"
         },
         {
-          "name": "owner_token_receive_wallet",
+          "name": "ownerTokenReceiveWallet",
           "type": "pubkey"
         },
         {
-          "name": "btb_price",
+          "name": "btbPrice",
           "type": "u64"
         },
         {
-          "name": "vesting_price",
+          "name": "vestingPrice",
           "type": "u64"
         }
       ]
     },
     {
-      "name": "toggle_sale",
+      "name": "toggleSale",
       "discriminator": [
         87,
         7,
@@ -634,7 +640,7 @@
       ],
       "accounts": [
         {
-          "name": "btb_sale_account",
+          "name": "btbSaleAccount",
           "writable": true,
           "pda": {
             "seeds": [
@@ -662,7 +668,7 @@
               {
                 "kind": "account",
                 "path": "btb_sale_account.owner_initialize_wallet",
-                "account": "InitializeDataAccount"
+                "account": "initializeDataAccount"
               }
             ]
           }
@@ -673,14 +679,78 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
       "args": []
     },
     {
-      "name": "update_initialize",
+      "name": "transferAdmin",
+      "discriminator": [
+        42,
+        242,
+        66,
+        106,
+        228,
+        10,
+        111,
+        156
+      ],
+      "accounts": [
+        {
+          "name": "btbSaleAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  116,
+                  98,
+                  45,
+                  115,
+                  97,
+                  108,
+                  101,
+                  45,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "btb_sale_account.owner_initialize_wallet",
+                "account": "initializeDataAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "newAdmin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "updateInitialize",
       "discriminator": [
         112,
         141,
@@ -693,7 +763,7 @@
       ],
       "accounts": [
         {
-          "name": "btb_sale_account",
+          "name": "btbSaleAccount",
           "writable": true,
           "pda": {
             "seeds": [
@@ -721,7 +791,7 @@
               {
                 "kind": "account",
                 "path": "btb_sale_account.owner_initialize_wallet",
-                "account": "InitializeDataAccount"
+                "account": "initializeDataAccount"
               }
             ]
           }
@@ -732,7 +802,7 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
@@ -750,19 +820,19 @@
           "type": "pubkey"
         },
         {
-          "name": "paypal_usd",
+          "name": "paypalUsd",
           "type": "pubkey"
         },
         {
-          "name": "owner_token_receive_wallet",
+          "name": "ownerTokenReceiveWallet",
           "type": "pubkey"
         },
         {
-          "name": "btb_price",
+          "name": "btbPrice",
           "type": "u64"
         },
         {
-          "name": "vesting_price",
+          "name": "vestingPrice",
           "type": "u64"
         }
       ]
@@ -770,7 +840,7 @@
   ],
   "accounts": [
     {
-      "name": "InitializeDataAccount",
+      "name": "initializeDataAccount",
       "discriminator": [
         249,
         158,
@@ -786,78 +856,68 @@
   "errors": [
     {
       "code": 6000,
-      "name": "Unauthorized",
+      "name": "unauthorized",
       "msg": "Unauthorized: Only owner can perform this action"
     },
     {
       "code": 6001,
-      "name": "ZeroBTBPrice",
+      "name": "zeroBtbPrice",
       "msg": "BTB price must be greater than 0"
     },
     {
       "code": 6002,
-      "name": "ZeroVestingPrice",
+      "name": "zeroVestingPrice",
       "msg": "Vesting price must be greater than 0"
     },
     {
       "code": 6003,
-      "name": "InvalidTokenType",
+      "name": "invalidTokenType",
       "msg": "Invalid token type selected"
     },
     {
       "code": 6004,
-      "name": "CalculationError",
+      "name": "calculationError",
       "msg": "Calculation overflow occurred"
     },
     {
       "code": 6005,
-      "name": "InvalidTokenMint",
+      "name": "invalidTokenMint",
       "msg": "Invalid token mint address"
     },
     {
       "code": 6006,
-      "name": "InvalidAmount",
+      "name": "invalidAmount",
       "msg": "Amount must be greater than zero"
     },
     {
       "code": 6007,
-      "name": "AmountTooSmall",
+      "name": "amountTooSmall",
       "msg": "Amount is too small. Minimum amount is 0.001 tokens"
     },
     {
       "code": 6008,
-      "name": "AmountTooLarge",
+      "name": "amountTooLarge",
       "msg": "Amount exceeds maximum limit"
     },
     {
       "code": 6009,
-      "name": "ClaimNotAvailableYet",
-      "msg": "Claiming is not available yet."
-    },
-    {
-      "code": 6010,
-      "name": "NothingToClaim",
-      "msg": "There is nothing to claim."
-    },
-    {
-      "code": 6011,
-      "name": "InvalidNewAdmin",
-      "msg": "Cannot transfer admin to zero address"
-    },
-    {
-      "code": 6012,
-      "name": "SaleNotActive",
+      "name": "saleNotActive",
       "msg": "Sale is not currently active"
     },
     {
-      "code": 6013,
-      "name": "NoTokensToWithdraw",
+      "code": 6010,
+      "name": "noTokensToWithdraw",
       "msg": "No tokens available to withdraw"
+    },
+    {
+      "code": 6011,
+      "name": "invalidNewAdmin",
+      "msg": "Cannot transfer admin to zero address"
     }
   ],
   "types": [
     {
-      "name": "InitializeDataAccount",
+      "name": "initializeDataAccount",
       "type": {
         "kind": "struct",
         "fields": [
@@ -874,31 +934,31 @@
             "type": "pubkey"
           },
           {
-            "name": "paypal_usd",
+            "name": "paypalUsd",
             "type": "pubkey"
           },
           {
-            "name": "owner_token_receive_wallet",
+            "name": "ownerTokenReceiveWallet",
             "type": "pubkey"
           },
           {
-            "name": "owner_initialize_wallet",
+            "name": "ownerInitializeWallet",
             "type": "pubkey"
           },
           {
-            "name": "btb_price",
+            "name": "btbPrice",
             "type": "u64"
           },
           {
-            "name": "vesting_price",
+            "name": "vestingPrice",
             "type": "u64"
           },
           {
-            "name": "is_sale_active",
+            "name": "isSaleActive",
             "type": "bool"
           }
         ]
       }
     }
   ]
-}
+};
