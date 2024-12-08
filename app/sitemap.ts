@@ -24,6 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/plant-tree`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/pools/orca`,
       lastModified: currentDate,
       changeFrequency: 'daily',

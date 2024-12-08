@@ -22,19 +22,15 @@ function DemoAnimation() {
         <div className="relative h-full">
           <div className={`absolute inset-0 transition-opacity duration-500 ${step === 0 ? 'opacity-100' : 'opacity-0'}`}>
             <h3 className="text-lg font-semibold mb-4">Deposit</h3>
-            {/* Animation content for deposit */}
           </div>
           <div className={`absolute inset-0 transition-opacity duration-500 ${step === 1 ? 'opacity-100' : 'opacity-0'}`}>
             <h3 className="text-lg font-semibold mb-4">Auto-Rebalance</h3>
-            {/* Animation content for rebalancing */}
           </div>
           <div className={`absolute inset-0 transition-opacity duration-500 ${step === 2 ? 'opacity-100' : 'opacity-0'}`}>
             <h3 className="text-lg font-semibold mb-4">Earn Yields</h3>
-            {/* Animation content for yields */}
           </div>
           <div className={`absolute inset-0 transition-opacity duration-500 ${step === 3 ? 'opacity-100' : 'opacity-0'}`}>
             <h3 className="text-lg font-semibold mb-4">Monitor</h3>
-            {/* Animation content for monitoring */}
           </div>
         </div>
       </div>
@@ -61,7 +57,7 @@ export function HeroSection() {
               />
             </div>
             <span className="text-sm font-medium text-[#E31E24]">
-              Revolutionizing DeFi on Solana
+              Public Sale Live
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-b from-[#E31E24] to-[#E31E24]/60">
@@ -72,12 +68,11 @@ export function HeroSection() {
             Optimize your yields across Orca, Raydium, and more with intelligent rebalancing.
           </p>
           
-          {/* Primary Actions */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <Link href="/dashboard">
+            <Link href="/buybtb">
               <Button size="lg" className="w-full sm:w-auto rounded-full h-12 px-8 text-lg bg-[#E31E24] hover:bg-[#E31E24]/90 group">
-                <LayoutDashboard className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-                Launch Dashboard
+                <Wallet className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                Buy BTB Tokens
               </Button>
             </Link>
             <Link href="/pools">
@@ -88,7 +83,6 @@ export function HeroSection() {
             </Link>
           </div>
 
-          {/* Quick Access Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
             <Link href="/dashboard" className="group">
               <div className="bg-background/50 backdrop-blur-sm p-4 rounded-lg border border-border/50 hover:border-primary/50 transition-all duration-300">
@@ -104,7 +98,7 @@ export function HeroSection() {
                 <p className="text-sm text-muted-foreground">Explore investment options</p>
               </div>
             </Link>
-            <Link href="#token" className="group sm:col-span-2 lg:col-span-1">
+            <Link href="/buybtb" className="group sm:col-span-2 lg:col-span-1">
               <div className="bg-background/50 backdrop-blur-sm p-4 rounded-lg border border-border/50 hover:border-primary/50 transition-all duration-300">
                 <Wallet className="h-6 w-6 mb-2 text-primary group-hover:scale-110 transition-transform" />
                 <h3 className="font-semibold">BTB Token</h3>
@@ -113,7 +107,6 @@ export function HeroSection() {
             </Link>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div>
               <h3 className="text-3xl font-bold text-primary">$100M+</h3>

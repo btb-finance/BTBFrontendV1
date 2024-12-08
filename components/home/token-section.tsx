@@ -2,10 +2,11 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PieChart, Coins, Lock, Users, Shield, Vote, Zap, Percent } from "lucide-react";
+import { Coins, Lock, Users, Shield, Vote, Zap, Percent } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 interface TokenMetric {
   title: string;
@@ -25,7 +26,7 @@ const tokenMetrics: TokenMetric[] = [
   {
     title: "Total Supply",
     value: "1,000,000,000 BTB",
-    icon: PieChart,
+    icon: Coins,
     description: "Fixed supply, no inflation"
   },
   {
@@ -166,9 +167,11 @@ export function TokenSection() {
                   Full platform benefits
                 </li>
               </ul>
-              <Button className="w-full" size="lg">
-                Buy BTB Tokens
-              </Button>
+              <Link href="/buybtb">
+                <Button className="w-full" size="lg">
+                  Buy BTB Tokens
+                </Button>
+              </Link>
             </Card>
 
             <Card className="p-6 hover:shadow-lg transition-all duration-300">
@@ -188,9 +191,11 @@ export function TokenSection() {
                   Early adopter benefits
                 </li>
               </ul>
-              <Button className="w-full" size="lg" variant="outline">
-                Join Strategic Sale
-              </Button>
+              <Link href="/buybtb">
+                <Button className="w-full" size="lg" variant="outline">
+                  Join Strategic Sale
+                </Button>
+              </Link>
             </Card>
           </div>
         </div>

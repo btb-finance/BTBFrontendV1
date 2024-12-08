@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useState, useEffect } from "react";
 
 const initialData = [
