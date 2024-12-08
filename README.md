@@ -1,7 +1,7 @@
 # BTB Frontend V1
 
 ## Description
-This is the frontend application for BTB (Better Than Before), built with modern web technologies to provide a seamless user experience.
+This is the frontend application for BTB (Better Than Before), a modern financial platform built with cutting-edge web technologies to provide a seamless user experience.
 
 ## Technologies Used
 - React.js
@@ -45,31 +45,47 @@ BTBFrontendV1/
 ```
 
 ## Features
-- [List key features of your application]
 - Responsive design
 - Modern UI/UX
 - Cross-browser compatibility
-
-## Deployment
-The application is configured to deploy using GitHub Pages. The deployment process is automated through GitHub Actions workflow.
-
-### GitHub Pages Setup
-1. Enable GitHub Pages in repository settings
-2. Select 'GitHub Actions' as the build and deployment source
-3. Configure the deployment branch (main or gh-pages)
+- Financial data visualization
+- Real-time updates
 
 ## Contributing
+We welcome contributions to BTB Frontend! Here's how you can help:
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
-[Your chosen license]
+Please make sure to update tests as appropriate and follow our code of conduct.
 
 ## Contact
-[Your contact information]
+- Telegram: @btbfinance
+- Instagram: @btb_finance
+- Twitter/X: @btbfinance
 
-## Acknowledgments
-- List any resources, libraries, or tools that you used or were inspired by
+## License
+MIT License
+
+Copyright (c) 2024 BTB Finance
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
