@@ -1,4 +1,4 @@
-# 🚀 BTB Frontend V1
+# BTB Frontend V1
 
 <div align="center">
 
@@ -9,24 +9,24 @@
 [![Instagram](https://img.shields.io/badge/Instagram-@btb__finance-purple)](https://instagram.com/btb_finance)
 
 <p align="center">
-  <img src="assets/logo.png" alt="BTB Finance Logo" width="200"/>
+  <img src="https://raw.githubusercontent.com/btb-finance/BTBFrontend/refs/heads/master/public/btb.png" alt="BTB Finance Logo" width="200"/>
 </p>
 
 </div>
 
-## 📋 Description
+## Description
 
 BTB (Better Than Before) is a cutting-edge financial platform that revolutionizes how you interact with financial markets. Built with modern web technologies, it provides a seamless and intuitive user experience for all your financial needs.
 
-## ✨ Features
+## Features
 
-- 📱 **Responsive Design** - Perfect experience on any device
-- 🎨 **Modern UI/UX** - Sleek and intuitive interface
-- 🌐 **Cross-browser Compatibility** - Works on all modern browsers
-- 📊 **Financial Data Visualization** - Clear and interactive charts
-- ⚡ **Real-time Updates** - Stay current with market movements
+- **Responsive Design** - Perfect experience on any device
+- **Modern UI/UX** - Sleek and intuitive interface
+- **Cross-browser Compatibility** - Works on all modern browsers
+- **Financial Data Visualization** - Clear and interactive charts
+- **Real-time Updates** - Stay current with market movements
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 - ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -34,55 +34,55 @@ BTB (Better Than Before) is a cutting-edge financial platform that revolutionize
 - ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 - ![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
 
-## 📦 Prerequisites
+## Prerequisites
 
 - Node.js (v14 or higher)
 - npm or yarn package manager
 
-## 🚀 Quick Start
+## Quick Start
 
-1️⃣ **Clone the repository**
+1. **Clone the repository**
 ```bash
-git clone [your-repository-url]
+git clone https://github.com/btb-finance/BTBFrontend.git
 cd BTBFrontendV1
 ```
 
-2️⃣ **Install dependencies**
+2. **Install dependencies**
 ```bash
 npm install
 # or
 yarn install
 ```
 
-3️⃣ **Start the development server**
+3. **Start the development server**
 ```bash
 npm start
 # or
 yarn start
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 BTBFrontendV1/
-├── 📂 src/           # Source files
-├── 📂 public/        # Static files
-├── 📂 components/    # React components
-├── 📂 assets/        # Images, fonts, etc.
-└── 📂 styles/        # CSS/SCSS files
+├── src/           # Source files
+├── public/        # Static files
+├── components/    # React components
+├── assets/        # Images, fonts, etc.
+└── styles/        # CSS/SCSS files
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We love your input! We want to make contributing to BTB Frontend as easy and transparent as possible. Here's how you can help:
 
-1. 🍴 Fork the repository
-2. 🌱 Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. 💬 Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. 📌 Push to the branch (`git push origin feature/AmazingFeature`)
-5. 🔍 Open a Pull Request
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📱 Connect With Us
+## Connect With Us
 
 <div align="center">
 
@@ -92,7 +92,7 @@ We love your input! We want to make contributing to BTB Frontend as easy and tra
 
 </div>
 
-## 📄 License
+## License
 
 MIT License • [View License](LICENSE)
 
@@ -101,7 +101,7 @@ MIT License • [View License](LICENSE)
 ---
 
 <p>
-  <sub>Built with ❤️ by BTB Finance Team</sub>
+  <sub>Built with by BTB Finance Team</sub>
 </p>
 
 </div>
