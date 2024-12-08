@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Wallet } from "lucide-react";
+import { Wallet, Leaf } from "lucide-react";
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { shortenAddress } from "@/lib/utils";
@@ -100,6 +100,17 @@ export function MainNav() {
               )}
             >
               Pools
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+            </Link>
+            <Link
+              href="/plant-tree"
+              className={cn(
+                "text-sm font-medium transition-all hover:text-primary relative group flex items-center gap-1",
+                pathname === "/plant-tree" ? "text-primary" : "text-muted-foreground"
+              )}
+            >
+              <Leaf className="h-4 w-4" />
+              Plant a Tree
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
             </Link>
             {!isHome && <WalletButton />}
