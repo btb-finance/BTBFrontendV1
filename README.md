@@ -1,4 +1,4 @@
-# BTB Frontend V1
+# BTB Frontend
 
 ## Description
 This is the frontend application for BTB (Better Than Before), a modern financial platform built with cutting-edge web technologies to provide a seamless user experience.
@@ -36,7 +36,7 @@ yarn start
 
 ## Project Structure
 ```
-BTBFrontendV1/
+BTBFrontend/
 ├── src/           # Source files
 ├── public/        # Static files
 ├── components/    # React components
