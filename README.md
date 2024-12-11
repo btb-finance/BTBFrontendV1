@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
-[![Follow on X](https://img.shields.io/twitter/follow/btbfinance?style=social)](https://twitter.com/btbfinance)
+[![Follow on X](https://img.shields.io/twitter/follow/btbfinance?style=social)](https://twitter.com/btb_finance)
 [![Telegram](https://img.shields.io/badge/Telegram-@btbfinance-blue)](https://t.me/btbfinance)
 [![Instagram](https://img.shields.io/badge/Instagram-@btb__finance-purple)](https://instagram.com/btb_finance)
 
