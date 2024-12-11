@@ -1,0 +1,11 @@
+User-Agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+User-Agent: Googlebot
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+Sitemap: https://btb.finance/sitemap.xml

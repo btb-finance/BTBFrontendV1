@@ -13,7 +13,12 @@ export function SaleProgress() {
     <Card className="hover:shadow-lg transition-all duration-300">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Sale Progress</h2>
-        <Progress value={progress} className="h-4 mb-4" />
+        <div className="relative h-4 mb-4 w-full overflow-hidden rounded-full bg-primary/20">
+          <div
+            className="h-full bg-primary transition-all"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
         <div className="flex justify-between text-sm text-muted-foreground mb-8">
           <span>{SOLD_AMOUNT.toLocaleString()} BTB</span>
           <span>{TOTAL_SUPPLY.toLocaleString()} BTB</span>
@@ -29,15 +34,18 @@ export function SaleProgress() {
               </div>
               <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
                 <span>$500 - $999</span>
-                <Badge variant="secondary">Builder</Badge>
+                <Badge variant="secondary">Growth</Badge>
               </div>
               <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
-                <span>$1,000+</span>
-                <Badge variant="secondary">Innovator</Badge>
+                <span>$1,000 - $4,999</span>
+                <Badge variant="secondary">Premium</Badge>
+              </div>
+              <div className="flex items-center justify-between p-2 rounded-lg bg-muted/50">
+                <span>$5,000+</span>
+                <Badge variant="secondary">Elite</Badge>
               </div>
             </div>
           </div>
-
           <AcceptedTokens />
         </div>
       </CardContent>

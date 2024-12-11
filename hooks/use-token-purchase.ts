@@ -20,8 +20,8 @@ export function useTokenPurchase() {
     try {
       setIsLoading(true);
       const tx = await createBuyTokenTransaction(publicKey, amount, tokenType);
-      const signature = await signTransaction(tx);
-      
+      const signedTx = await signTransaction(tx);
+      const signature = await connection.sendRawTransaction(signedTx.serialize());
       const confirmation = await connection.confirmTransaction(signature, 'confirmed');
       
       if (confirmation.value.err) {
