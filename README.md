@@ -16,7 +16,7 @@
 
 ## Description
 
-BTB (Better Than Before) is a cutting-edge financial platform that revolutionizes how you interact with financial markets. Built with modern web technologies, it provides a seamless and intuitive user experience for all your financial needs.
+BTB Finance is a cutting-edge financial platform that revolutionizes how you interact with financial markets. Built with modern web technologies, it provides a seamless and intuitive user experience for all your financial needs.
 
 ## Features
 
