@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
-[![Follow on X](https://img.shields.io/twitter/follow/btbfinance?style=social)](https://twitter.com/btbfinance)
+[![Follow on X](https://img.shields.io/twitter/follow/btb_finance?style=social)](https://twitter.com/btb_finance)
 [![Telegram](https://img.shields.io/badge/Telegram-@btbfinance-blue)](https://t.me/btbfinance)
 [![Instagram](https://img.shields.io/badge/Instagram-@btb__finance-purple)](https://instagram.com/btb_finance)
 
@@ -16,7 +16,8 @@
 
 ## Description
 
-BTB (Better Than Before) is a cutting-edge DeFi platform built on Solana, revolutionizing how you interact with decentralized financial markets. Our platform combines advanced blockchain technology with an intuitive user interface to provide a seamless DeFi experience.
+
+BTB Finance is a cutting-edge financial platform that revolutionizes how you interact with financial markets. Built with modern web technologies, it provides a seamless and intuitive user experience for all your financial needs.
 
 ## Features
 
@@ -152,8 +153,8 @@ We welcome contributions! Here's how you can help:
 <div align="center">
 
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/btbfinance)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/btbfinance)
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/btb_finance)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/btb_finance)
 
 </div>
 
