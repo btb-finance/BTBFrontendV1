@@ -1,4 +1,4 @@
-# BTB Frontend V1
+# BTB Frontend
 
 <div align="center">
 
@@ -88,7 +88,7 @@ We love your input! We want to make contributing to BTB Frontend as easy and tra
 
 [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/btbfinance)
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/btb_finance)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/btbfinance)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/btb_finance)
 
 </div>
 
