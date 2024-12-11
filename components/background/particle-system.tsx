@@ -1,12 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
-
-const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
-  ssr: false,
-});
 
 interface Particle {
   x: number;
@@ -21,44 +16,52 @@ interface Particle {
 }
 
 export function ParticleSystem() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
+  const animationFrameRef = useRef<number>();
   const { theme } = useTheme();
   const btbLogoRef = useRef<HTMLImageElement | null>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    const img = document.createElement('img');
+    const img = new Image();
     img.src = '/btb-logo.png';
     img.onload = () => {
       btbLogoRef.current = img;
     };
   }, []);
 
-  const setup = (p5: any, canvasParentRef: Element) => {
-    p5.createCanvas(window.innerWidth, window.innerHeight).parent(canvasParentRef);
-    initParticles(p5);
-
+  useEffect(() => {
     const handleResize = () => {
-      p5.resizeCanvas(window.innerWidth, window.innerHeight);
-      initParticles(p5);
+      if (canvasRef.current) {
+        const canvas = canvasRef.current;
+        const { width, height } = canvas.getBoundingClientRect();
+        canvas.width = width;
+        canvas.height = height;
+        setDimensions({ width, height });
+        initParticles(width, height);
+      }
     };
+
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  };
+  }, []);
 
-  const initParticles = (p5: any) => {
+  const initParticles = (width: number, height: number) => {
     particles.current = [];
-    const numParticles = Math.floor((p5.width * p5.height) / 20000);
+    const numParticles = Math.floor((width * height) / 20000);
     const numBTBLogos = Math.floor(numParticles * 0.1);
     
     // Create regular particles
     for (let i = 0; i < numParticles - numBTBLogos; i++) {
       particles.current.push({
-        x: p5.random(p5.width),
-        y: p5.random(p5.height),
-        vx: p5.random(-0.3, 0.3),
-        vy: p5.random(-0.3, 0.3),
-        size: p5.random(2, 4),
-        alpha: p5.random(40, 80),
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        size: Math.random() * 2 + 2,
+        alpha: Math.random() * 40 + 40,
         isBTB: false
       });
     }
@@ -66,92 +69,132 @@ export function ParticleSystem() {
     // Create BTB logo particles
     for (let i = 0; i < numBTBLogos; i++) {
       particles.current.push({
-        x: p5.random(p5.width),
-        y: p5.random(p5.height),
-        vx: p5.random(-0.2, 0.2),
-        vy: p5.random(-0.2, 0.2),
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
         size: 30,
-        alpha: p5.random(40, 60),
+        alpha: Math.random() * 20 + 40,
         isBTB: true,
-        rotation: p5.random(0, 360),
-        rotationSpeed: p5.random(-0.5, 0.5)
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5)
       });
     }
   };
 
-  const draw = (p5: any) => {
-    p5.clear();
-    
-    const primaryColor = theme === 'dark' ? [227, 30, 36] : [227, 30, 36];
-    
-    // Draw connections
-    particles.current.forEach((particle, i) => {
-      particles.current.forEach((other, j) => {
-        if (i !== j) {
-          const d = p5.dist(particle.x, particle.y, other.x, other.y);
-          const maxDist = particle.isBTB || other.isBTB ? 120 : 80;
-          
-          if (d < maxDist) {
-            const alpha = p5.map(d, 0, maxDist, 30, 0);
-            p5.stroke(...primaryColor, alpha * 0.15);
-            p5.line(particle.x, particle.y, other.x, other.y);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let frameCount = 0;
+
+    const render = () => {
+      if (!canvas || !ctx) return;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const primaryColor = theme === 'dark' ? [227, 30, 36] : [227, 30, 36];
+      
+      // Draw connections
+      particles.current.forEach((particle, i) => {
+        particles.current.forEach((other, j) => {
+          if (i !== j) {
+            const d = Math.hypot(particle.x - other.x, particle.y - other.y);
+            const maxDist = particle.isBTB || other.isBTB ? 120 : 80;
+            
+            if (d < maxDist) {
+              const alpha = (1 - d / maxDist) * 30;
+              ctx.strokeStyle = `rgba(${primaryColor.join(',')},${alpha * 0.15})`;
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(other.x, other.y);
+              ctx.stroke();
+            }
           }
+        });
+      });
+
+      // Draw particles
+      particles.current.forEach(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        
+        // Wrap around screen edges
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
+        if (particle.isBTB && btbLogoRef.current) {
+          particle.rotation! += particle.rotationSpeed!;
+          
+          ctx.save();
+          ctx.translate(particle.x, particle.y);
+          ctx.rotate((particle.rotation! * Math.PI) / 180);
+          ctx.globalAlpha = particle.alpha / 255;
+          ctx.drawImage(
+            btbLogoRef.current,
+            -particle.size / 2,
+            -particle.size / 2,
+            particle.size,
+            particle.size
+          );
+          ctx.restore();
+        } else {
+          ctx.save();
+          ctx.translate(particle.x, particle.y);
+          ctx.rotate(frameCount * 0.02);
+          ctx.beginPath();
+          
+          // Draw star shape
+          for (let i = 0; i < 5; i++) {
+            const angle = (Math.PI * 2 * i) / 5;
+            const x = Math.cos(angle) * particle.size;
+            const y = Math.sin(angle) * particle.size;
+            
+            if (i === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+            
+            const innerAngle = angle + (Math.PI * 2) / 10;
+            const innerX = Math.cos(innerAngle) * (particle.size * 0.4);
+            const innerY = Math.sin(innerAngle) * (particle.size * 0.4);
+            ctx.lineTo(innerX, innerY);
+          }
+          
+          ctx.closePath();
+          ctx.fillStyle = `rgba(${primaryColor.join(',')},${particle.alpha * 0.2})`;
+          ctx.fill();
+          ctx.restore();
         }
       });
-    });
 
-    // Draw particles
-    particles.current.forEach(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      
-      // Wrap around screen edges
-      if (particle.x < 0) particle.x = p5.width;
-      if (particle.x > p5.width) particle.x = 0;
-      if (particle.y < 0) particle.y = p5.height;
-      if (particle.y > p5.height) particle.y = 0;
+      frameCount++;
+      animationFrameRef.current = requestAnimationFrame(render);
+    };
 
-      if (particle.isBTB && btbLogoRef.current) {
-        particle.rotation! += particle.rotationSpeed!;
-        
-        p5.push();
-        p5.translate(particle.x, particle.y);
-        p5.rotate(p5.radians(particle.rotation!));
-        p5.tint(255, particle.alpha);
-        p5.imageMode(p5.CENTER);
-        p5.image(btbLogoRef.current, 0, 0, particle.size, particle.size);
-        p5.pop();
-      } else {
-        p5.noStroke();
-        p5.fill(...primaryColor, particle.alpha * 0.2);
-        
-        // Draw star shape
-        p5.push();
-        p5.translate(particle.x, particle.y);
-        p5.rotate(p5.frameCount * 0.02);
-        p5.beginShape();
-        for (let i = 0; i < 5; i++) {
-          const angle = p5.TWO_PI * i / 5;
-          const x = p5.cos(angle) * particle.size;
-          const y = p5.sin(angle) * particle.size;
-          p5.vertex(x, y);
-          
-          const innerAngle = angle + p5.TWO_PI / 10;
-          const innerX = p5.cos(innerAngle) * (particle.size * 0.4);
-          const innerY = p5.sin(innerAngle) * (particle.size * 0.4);
-          p5.vertex(innerX, innerY);
-        }
-        p5.endShape(p5.CLOSE);
-        p5.pop();
+    render();
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
-    });
-  };
+    };
+  }, [theme, dimensions]);
 
   return (
     <>
       <div className="fixed inset-0 -z-20 bg-gradient-to-b from-red-50/90 via-background to-background dark:from-red-950/20 dark:via-background dark:to-background" />
       <div className="fixed inset-0 -z-10 opacity-30">
-        <Sketch setup={setup} draw={draw} />
+        <canvas
+          ref={canvasRef}
+          style={{ width: '100%', height: '100%' }}
+        />
       </div>
     </>
   );
