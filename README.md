@@ -16,35 +16,52 @@
 
 ## Description
 
+
 BTB Finance is a cutting-edge financial platform that revolutionizes how you interact with financial markets. Built with modern web technologies, it provides a seamless and intuitive user experience for all your financial needs.
 
 ## Features
 
-- **Responsive Design** - Perfect experience on any device
-- **Modern UI/UX** - Sleek and intuitive interface
-- **Cross-browser Compatibility** - Works on all modern browsers
-- **Financial Data Visualization** - Clear and interactive charts
-- **Real-time Updates** - Stay current with market movements
+- **Solana Integration** - Built on Solana's high-performance blockchain
+- **Web3 Wallet Support** - Compatible with Phantom, Solflare, and other Solana wallets
+- **Modern UI/UX** - Built with Next.js 14 and Radix UI components
+- **Responsive Design** - Optimized for all devices with Tailwind CSS
+- **Dark/Light Mode** - Theme support with next-themes
+- **Interactive Charts** - Financial data visualization with Recharts
+- **Type Safety** - Full TypeScript support
+- **Testing** - Comprehensive Jest and React Testing Library setup
 
-## Technologies Used
+## Tech Stack
 
-- ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-- ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-- ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-- ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-- ![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)
+### Core
+- ![Next.js](https://img.shields.io/badge/Next.js_14-000000?style=for-the-badge&logo=next.js&logoColor=white)
+- ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+- ![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+### Styling
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+- ![Radix UI](https://img.shields.io/badge/Radix_UI-161618?style=for-the-badge&logo=radix-ui&logoColor=white)
+
+### Blockchain
+- ![Solana](https://img.shields.io/badge/Solana-9945FF?style=for-the-badge&logo=solana&logoColor=white)
+- Anchor Framework
+- Web3.js
+
+### Testing
+- ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+- React Testing Library
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js 18.x or higher
 - npm or yarn package manager
+- A Solana wallet (Phantom or Solflare recommended)
 
-## Quick Start
+## Getting Started
 
 1. **Clone the repository**
 ```bash
 git clone https://github.com/btb-finance/BTBFrontend.git
-cd BTBFrontendV1
+cd BTBFrontend
 ```
 
 2. **Install dependencies**
@@ -54,33 +71,82 @@ npm install
 yarn install
 ```
 
-3. **Start the development server**
+3. **Set up environment variables**
 ```bash
-npm start
+cp .env.example .env.local
+# Edit .env.local with your configuration
+```
+
+4. **Start the development server**
+```bash
+npm run dev
 # or
-yarn start
+yarn dev
+```
+
+5. **Run tests**
+```bash
+npm test
+npm run test:watch   # Watch mode
+npm run test:coverage # Coverage report
 ```
 
 ## Project Structure
 
 ```
-BTBFrontendV1/
-├── src/           # Source files
-├── public/        # Static files
-├── components/    # React components
-├── assets/        # Images, fonts, etc.
-└── styles/        # CSS/SCSS files
+BTBFrontend/
+├── app/              # Next.js 14 app directory
+├── components/       # React components
+│   ├── background/  # Background components
+│   └── ui/          # UI components
+├── public/          # Static files
+├── styles/          # Global styles
+├── lib/             # Utility functions
+├── hooks/           # Custom React hooks
+└── __tests__/       # Test files
 ```
 
 ## Contributing
 
-We love your input! We want to make contributing to BTB Frontend as easy and transparent as possible. Here's how you can help:
+We welcome contributions! Here's how you can help:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. **Fork the Repository**
+   - Create your own fork of the code
+
+2. **Create a Branch**
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+
+3. **Make Changes**
+   - Write your code
+   - Add or update tests
+   - Update documentation
+
+4. **Follow Coding Standards**
+   - Use TypeScript for type safety
+   - Follow the existing code style
+   - Run tests before submitting
+
+5. **Commit Changes**
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+
+6. **Push and Create PR**
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+   Then create a Pull Request on GitHub
+
+## Development Guidelines
+
+- Use TypeScript for all new code
+- Write tests for new features
+- Follow the component structure in place
+- Use Tailwind CSS for styling
+- Ensure responsive design
+- Keep accessibility in mind
 
 ## Connect With Us
 
@@ -94,14 +160,12 @@ We love your input! We want to make contributing to BTB Frontend as easy and tra
 
 ## License
 
-MIT License • [View License](LICENSE)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <div align="center">
 
 ---
 
-<p>
-  <sub>Built with by BTB Finance Team</sub>
-</p>
+Made with ❤️ by the BTB Finance Team
 
 </div>
