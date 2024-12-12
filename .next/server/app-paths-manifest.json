@@ -1,7 +1,5 @@
 {
-  "/plant-tree/page": "app/plant-tree/page.js",
   "/page": "app/page.js",
-  "/pools/page": "app/pools/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/buybtb/page": "app/buybtb/page.js"
+  "/pools/raydium/page": "app/pools/raydium/page.js",
+  "/pools/orca/page": "app/pools/orca/page.js"
 }

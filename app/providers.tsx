@@ -3,19 +3,23 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { WalletProvider } from '@/components/solana/wallet-provider';
+import { Provider } from "react-redux";
+import { store } from "@/lib/store/store";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <WalletProvider>
-        {children}
-        <Toaster />
-      </WalletProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <WalletProvider>
+          {children}
+          <Toaster />
+        </WalletProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }

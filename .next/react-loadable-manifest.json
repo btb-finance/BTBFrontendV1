@@ -1,10 +1,4 @@
 {
-  "components/background/particle-system.tsx -> react-p5": {
-    "id": "components/background/particle-system.tsx -> react-p5",
-    "files": [
-      "static/chunks/_app-pages-browser_node_modules_react-p5_build_index_js.js"
-    ]
-  },
   "node_modules/@solana/wallet-adapter-solflare/lib/esm/adapter.js -> @solflare-wallet/sdk": {
     "id": "node_modules/@solana/wallet-adapter-solflare/lib/esm/adapter.js -> @solflare-wallet/sdk",
     "files": [
